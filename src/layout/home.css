@@ -1,0 +1,59 @@
+.pai {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    text-align: center;
+}
+
+.imgJaquetaH {
+    width: 650px;
+    height: auto;
+    z-index: 1;
+    margin-top: 20%;
+}
+
+.h1 {
+    font-size: 300px;
+    position: absolute;
+    margin-left: -7%;
+}
+
+.h2 {
+    font-size: 300px;
+    position: absolute;
+    z-index: 1;
+    margin-top: 400px;
+    margin-left: -10%;
+}
+
+.icons {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-left: -5%;
+    margin-top: -200px;
+}
+
+.icons a {
+    background-color: rgb(12, 12, 12);
+    border-radius: 100%;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.39);
+}
+
+.icons a:hover {
+    cursor: pointer;
+    z-index: 10;
+    background-color: rgb(22, 22, 22);
+    transform: scale(1.2);
+    opacity: 1;
+
+}
