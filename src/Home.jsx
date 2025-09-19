@@ -1,95 +1,154 @@
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import jaqueta from "./assets/jaquetaH2.png";
+import jaqueta from "./assets/jaquetaH2.png"; // sua imagem
+import jaqueta2 from "./assets/jaquetalevantado.png"; // sua imagem
 import "./layout/home.css";
-import insta from "./assets/instagram.png";
-import git from "./assets/github.png";
-import link from "./assets/linkedin.png";
+import Model3d from "./components/Modelo3D";
 
-function Home() {
-  useLayoutEffect(() => {
-    let tl = gsap.timeline();
+gsap.registerPlugin(ScrollTrigger);
 
-    tl.fromTo(
-      ".imgJaquetaH",
-      { y: 200, opacity: 0 },
-      { y: -100, opacity: 1, duration: 1 }
-    )
-      .fromTo(
-        ".h1",
-        { y: 200, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1 },
-        "-=0.6"
-      )
-      .fromTo(
-        ".h2",
-        { y: 200, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1 },
-        "-=0.9"
-      )
-      .fromTo(
-        ".esque",
-        { y: 200, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1 },
-        "-=0.5"
-      )
-      .fromTo(
-        ".dire",
-        { y: 200, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1 },
-        "-=0.5"
-      )
-      .fromTo(
-        ".name",
-        { y: 200, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1 },
-        "-=0.1"
-      )
-      .fromTo(
-        ".planoDeFundo",
-        { y: 200, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1 },
-        "-=0.1"
-      )
-      // ANIMAÇÃO DE FLUTUAR DO TÊNIS
-      .to(".tenisNike", {
-        y: "=20",
-        duration: 2,
-        yoyo: true,
-        repeat: -1,
-        ease: "sine.inOut",
-      })
-      // ANIMAÇÃO DE FLUTUAR DA SOMBRA
-      .to(
-        ".sombra",
-        {
-          scale: 1.2, // diminui a sombra
-          duration: 2,
-          yoyo: true,
-          repeat: -1,
-          ease: "sine.inOut",
+export default function HeroSection() {
+  const containerRef = useRef(null);
+  const imgRef = useRef(null);
+  const contentRef = useRef(null);
+  const overlayRef = useRef(null);
+  const nextContentRef = useRef(null);
+  let tl = gsap.timeline();
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "20%",
+          // end: "+=800", // anima até 800px de scroll
+          scrub: 1,
+          pin: true,
         },
-        "<" // "<" significa iniciar junto com a animação anterior do tênis
+      });
+
+      tl.fromTo(
+        ".justDoIt",
+        { opacity: 1, y: 0 },
+        { opacity: 0, y: 0, duration: 1 }
       );
+
+      // 1️⃣ Fade out do texto inicial
+      tl.to(contentRef.current, {
+        opacity: 0,
+        duration: 1,
+      });
+
+      tl.to(contentRef.current, {
+        opacity: 0,
+        duration: 1,
+      });
+
+      // 2️⃣ Zoom no capuz
+      tl.to(
+        imgRef.current,
+        {
+          scale: 10,
+          transformOrigin: "50% 20%", // ajuste no capuz
+          duration: 1,
+        },
+        "<"
+      );
+
+      // 3️⃣ Overlay preto cobre a tela (mais rápido)
+      tl.to(
+        overlayRef.current,
+        {
+          opacity: 1,
+          duration: 0.1, // antes era 1.5
+        },
+        "-=0.3"
+      );
+
+      // 4️⃣ Some com a imagem da jaqueta
+      tl.to(
+        imgRef.current,
+        {
+          opacity: 0,
+          duration: 0.1, // antes era 0.5
+        },
+        "<"
+      ); // "<" = acontece ao mesmo tempo do overlay
+
+      // 5️⃣ Próxima seção aparece de dentro (mais rápido + começa junto)
+      tl.fromTo(
+        nextContentRef.current,
+        { scale: 0.9, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 1, ease: "power2.out" }, // antes era 2
+        "-=0.6" // começa antes do overlay terminar
+      );
+
+      // 6️⃣ Overlay some revelando de vez o site
+      tl.to(overlayRef.current, {
+        opacity: 0,
+        duration: 1,
+      });
+      gsap.fromTo(
+        ".testando",
+        { y: 200, opacity: 0 },
+        {
+          y: -100,
+          opacity: 1,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".testando", // só dispara quando essa img aparecer
+            start: "top 50%", // começa quando o topo dela chega a 80% da tela
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <>
-      <div className="pai">
-        <div className="centerPage">
-          <h1 className="h1">style</h1>
-          <h2 className="h2">hiddie</h2>
-          <img src={jaqueta} alt="" className="imgJaquetaH" />
+    <div>
+      {/* HERO */}
+      <section
+        ref={containerRef}
+        className="h-screen w-full relative overflow-hidden bg-black"
+      >
+        <p className="textImg1 justDoIt">Justdo</p>
+        <img
+          ref={imgRef}
+          src={jaqueta} // imagem importada
+          alt="Capuz"
+          className="imgJaquetaH"
+        />
+        <p className="textImg2 justDoIt">It</p>
+
+        {/* Texto inicial */}
+
+        {/* Overlay preto */}
+        <div
+          ref={overlayRef}
+          className="absolute top-0 left-0 w-full h-full bg-black opacity-0 pointer-events-none"
+        />
+
+        {/* Próxima seção escondida */}
+        <div
+          ref={nextContentRef}
+          className="segundaTela"
+          style={{ opacity: 0 }}
+        >
+          {/* <img src={jaqueta2} alt="" className="segundaImgJaqueta" /> */}
+          <Model3d />
         </div>
-      </div>
-        <div className="icons">
-          <a href=""><img src={insta} alt="" /></a>
-          <a href=""><img src={link} alt="" /></a>
-          <a href="https://github.com/GabrielSilva077"><img src={git} alt="" /></a>
-        </div>
-    </>
+      </section>
+
+      {/* Continuação normal */}
+      <section className="teste">
+        <p>Segunda parte do site ✨</p>
+      </section>
+    </div>
   );
 }
-
-export default Home;
