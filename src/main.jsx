@@ -4,11 +4,15 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import Home from './Home'
 import Navbar from './components/Navbar'
-import Model3d from './components/Modelo3D'
+// import Card from './components/Card'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Navbar />
     <Home />
+    {/* <Card /> */}
   </React.StrictMode>,
 )
+
+
+

@@ -3,9 +3,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #000000; /* roxo */
-  padding: 0 20px;
+  background-color: rgba(10, 10, 10, 0.6); /* fundo preto semi-transparente */
+  backdrop-filter: blur(10px); /* efeito blur */
+  -webkit-backdrop-filter: blur(10px); /* suporte Safari */
+  padding: 0 200px;
   height: 60px;
+  position: fixed;
+  width: 100%;
+  z-index: 1000; /* garante que fique acima de outros elementos */
 }
 
 .logo {
@@ -31,7 +36,8 @@
 }
 
 .nav-list a:hover {
-  color: #FFD700; /* dourado */
+  color: #FFD700;
+  /* dourado */
 }
 
 /* Hamburger menu */
@@ -51,10 +57,15 @@
 
 /* Responsividade */
 @media (max-width: 768px) {
+
+  .navbar {
+    padding: 0 10px;
+  }
+
   .menu-toggle {
     display: flex;
   }
-  
+
   .nav-list {
     position: absolute;
     top: 60px;
@@ -66,23 +77,23 @@
     align-items: center;
     transition: 0.3s;
   }
-  
+
   .nav-list li {
     margin: 40px 0;
   }
-  
+
   .nav-list.active {
     left: 0;
   }
 }
 
 
-.logo{
-    width: 5%;
+.logo {
+  width: 5%;
 }
 
-.nomeImg{
-    display: flex;
-    text-align: center;
-    gap: 5%;
+.nomeImg {
+  display: flex;
+  text-align: center;
+  gap: 5%;
 }

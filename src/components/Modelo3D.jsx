@@ -1,25 +1,26 @@
-// src/components/Modelo3D.jsx
 import React, { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, OrbitControls } from "@react-three/drei";
+import { useInView } from "react-intersection-observer";
 
-function Modelo() {
+function Modelo({ girar }) {
   const gltf = useGLTF("/models/img3d.glb");
   const ref = useRef();
-  const [girar, setGirar] = useState(false); // controla quando girar
 
-  // useEffect para iniciar a rotação após 0.5 segundos
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setGirar(true);
-    }, 1000); // 500ms
-    return () => clearTimeout(timer);
-  }, []);
+  // Estado para a escala
+  const targetScale = 3; // escala final
+  const initialScale = 5; // escala inicial maior
 
-  // gira o modelo apenas se girar=true
   useFrame(() => {
-    if (ref.current && girar) {
-      ref.current.rotation.y += 0.01; // velocidade da rotação
+    if (ref.current) {
+      // anima de initialScale para targetScale
+      ref.current.scale.lerp(
+        { x: targetScale, y: targetScale, z: targetScale },
+        0.02 // velocidade da interpolação (quanto menor, mais lento)
+      );
+
+      // rotação automática
+      if (girar) ref.current.rotation.y += 0.01;
     }
   });
 
@@ -27,15 +28,28 @@ function Modelo() {
     <primitive
       ref={ref}
       object={gltf.scene}
-      scale={[3, 3, 3]}
+      scale={[initialScale, initialScale, initialScale]} // começa maior
       position={[0, -1, 0]}
     />
   );
 }
 
 export default function Modelo3D() {
+  const [girar, setGirar] = useState(false);
+  const { ref: containerRef, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      const timer = setTimeout(() => setGirar(true), 500); // começa a girar após 0.5s
+      return () => clearTimeout(timer);
+    }
+  }, [inView]);
+
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <div ref={containerRef} style={{ width: "200vw", height: "140vh" }}>
       <Canvas camera={{ position: [0, 2, 8], fov: 50 }}>
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} />
@@ -47,9 +61,13 @@ export default function Modelo3D() {
             </mesh>
           }
         >
-          <Modelo />
+          <Modelo girar={girar} />
         </Suspense>
-        <OrbitControls enableZoom={false} />
+        <OrbitControls
+          enableZoom={false}
+          minPolarAngle={Math.PI / 2 - 0.26} // limita vertical (para cima)
+          maxPolarAngle={Math.PI / 2 + 0.26} // limita vertical (para baixo)
+        />
       </Canvas>
     </div>
   );
