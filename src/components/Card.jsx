@@ -49,7 +49,7 @@ export default function CardList() {
         scrollTrigger: {
           trigger: ".card",
           start: "top 80%",
-          end: "bottom 20%",
+          end: "bottom 90%",
           scrub: 1,
         },
       })

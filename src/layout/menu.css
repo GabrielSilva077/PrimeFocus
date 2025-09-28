@@ -26,7 +26,7 @@
     border-radius: 20px;
     margin-top: -100px;
     z-index: 1;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
 }
 
 .VerMais a {
@@ -36,7 +36,7 @@
 .VerMais {
     position: relative;
     z-index: 2;
-    font-size: 20px;
+    font-size: clamp(1rem, 1.5vw, 3rem);
     margin-top: -25px;
     background-color: var(--btn-cor);
     width: 10%;
