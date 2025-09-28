@@ -1,0 +1,103 @@
+/* nav */
+
+/* Responsividade */
+@media (max-width: 768px) {
+
+    .navbar {
+        padding: 0 10px;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-list {
+        position: absolute;
+        top: 60px;
+        left: -100%;
+        width: 40%;
+        height: 450px;
+        background-color: var(--cor-principal);
+        flex-direction: column;
+        align-items: center;
+        transition: 0.3s;
+        border-bottom-right-radius: 15px;
+    }
+
+    .nav-list li {
+        margin: 25px 0;
+    }
+
+    .nav-list.active {
+        left: 0;
+    }
+}
+
+/* cards */
+
+/* Para celulares: 1 card por linha */
+@media (max-width: 768px) {
+
+    .cardDados {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 10px;
+        height: 150px;
+    }
+
+    .cardsCoffe {
+        margin-top: -20px;
+        margin-left: 20px;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        width: 20%;
+    }
+
+    .nameCafe {
+        margin-top: -70px;
+        white-space: nowrap;
+    }
+
+    .descCafe {
+        width: 210px;
+        margin-top: 40px;
+        position: absolute;
+        margin-left: 70px;
+        text-align: justify;
+    }
+
+    .btnCard {
+        margin-top: -50px;
+        margin-left: 10px;
+        padding: 10px;
+    }
+
+    .arrowLeft {
+        left: 5px;
+        margin-top: 90px;
+    }
+
+    .arrowRight {
+        right: 5px;
+        margin-top: 90px;
+    }
+
+}
+
+
+/* Tablet: 2 cards por linha */
+@media (max-width: 1024px) {
+    .cardDados {
+        flex: 0 1 45%;
+        /* cada card ocupa ~45% do container */
+    }
+}
+
+/* Celular: 1 card por linha */
+@media (max-width: 768px) {
+    .cardDados {
+        flex: 0 1 90%;
+        /* ocupa quase toda a largura da tela */
+    }
+}

@@ -1,63 +1,86 @@
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Model3d from "../components/Modelo3D";
+import Img from "../assets/cafe.png";
+import Img2 from "../assets/cafe2.png";
+import Img3 from "../assets/bolo.png";
 import "../layout/card.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function HeroSection() {
-  const cardRef = useRef(null); // ref para a div principal
-  const textRef = useRef(null); // ref para o texto
-  const modelRef = useRef(null); // ref para o modelo 3D
+const cafes = [
+  {
+    id: 1,
+    nome: "Café Arábica",
+    descricao: "Suave e aromático.",
+    imagem: Img,
+    link: "#",
+  },
+  {
+    id: 2,
+    nome: "Café Robusta",
+    descricao: "Encorpado e intenso.",
+    imagem: Img2,
+    link: "#",
+  },
+  {
+    id: 3,
+    nome: "Bolo de Café",
+    descricao: "Delicioso bolo de café.",
+    imagem: Img3,
+    link: "#",
+  },
+  {
+    id: 4,
+    nome: "Café Especial",
+    descricao: "Sabor marcante.",
+    imagem: Img2,
+    link: "#",
+  },
+];
+
+export default function CardList() {
+  const cardsRef = useRef([]);
 
   useEffect(() => {
-    if (cardRef.current && textRef.current && modelRef.current) {
-      const tl = gsap.timeline({
+    
+    gsap
+      .timeline({
         scrollTrigger: {
-          trigger: cardRef.current, // dispara quando a div entra na tela
-          start: "top 80%", // topo do elemento atinge 80% da viewport
-          toggleActions: "play none none reverse",
+          trigger: ".card",
+          start: "top 80%",
+          end: "bottom 20%",
+          scrub: 1,
         },
-      });
-
-      // anima o card inteiro (fade in + subida)
-      tl.fromTo(
-        cardRef.current,
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+      })
+      .fromTo(
+        cardsRef.current,
+        { autoAlpha: 0, y: 50 }, 
+        {
+          autoAlpha: 1,
+          y: 0,
+          ease: "power1.out",
+          stagger: 0.2,
+        }
       );
-
-      // anima o texto com delay (stagger)
-      tl.fromTo(
-        textRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
-        "-=0.4" // começa 0.4s antes do fim da animação do card
-      );
-
-      // anima o modelo 3D com delay
-      tl.fromTo(
-        modelRef.current,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
-        "-=0.5" // começa junto com o texto
-      );
-    }
   }, []);
 
   return (
-    <div
-      ref={cardRef}
-      className="segundaTela"
-      style={{ opacity: 0 }}
-    >
-      <div className="aliText" ref={textRef}>
-        <p className="textTela2">special edition</p>
-      </div>
-      <div ref={modelRef}>
-        <Model3d className="img3d" />
-      </div>
-    </div>
+    <section className="card">
+      {cafes.map((cafe, index) => (
+        <div
+          key={cafe.id}
+          className="cardDados"
+          ref={(el) => (cardsRef.current[index] = el)}
+        >
+          <img src={cafe.imagem} alt={cafe.nome} className="cardsCoffe" />
+          <p className="nameCafe">{cafe.nome}</p>
+          <p className="descCafe">{cafe.descricao}</p>
+          <a href={cafe.link} className="btnCard">
+            Ver Mais
+          </a>
+        </div>
+      ))}
+    </section>
   );
 }

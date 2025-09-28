@@ -1,0 +1,53 @@
+.paiMenu {
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.bestSellers {
+    position: relative;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--cor-principal);
+    top: 20px;
+    margin-bottom: 20px;
+    left: 100px;
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 95%;
+    position: relative;
+    background-color: var(--amareloClaro);
+    border-radius: 20px;
+    margin-top: -100px;
+    z-index: 1;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.VerMais a {
+    color: var(--branco);
+}
+
+.VerMais {
+    position: relative;
+    z-index: 2;
+    font-size: 20px;
+    margin-top: -25px;
+    background-color: var(--btn-cor);
+    width: 10%;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
+    margin-bottom: 100px;
+    padding: 5px;
+}
+
+.VerMais:hover {
+    transition: ease-in-out 0.2s;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
+}
