@@ -1,15 +1,15 @@
-import { useEffect, useRef, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../layout/menu.css";
-import { useInView } from "react-intersection-observer";
-import { useState } from "react";
 import Card from "../components/Card";
 import "../layout/cardapio.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function CardapioSection() {
+  const [filter, setFilter] = useState("all"); // Estado do filtro
+
   useLayoutEffect(() => {
     let tl = gsap.timeline();
 
@@ -20,11 +20,6 @@ export default function CardapioSection() {
     );
   }, []);
 
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
   return (
     <>
       <section className="paiMenu">
@@ -33,16 +28,45 @@ export default function CardapioSection() {
           <p className="pMenu">
             Descubra nossa seleção de cafés especiais e delícias para acompanhar
           </p>
+
+          {/* Botões de filtro */}
           <div className="mineNav">
-            <p className="pI">Café </p>
-            <p>Bebidas Especiais</p>
-            <p>Doces</p>
-            <p className="pF">Salgados</p>
+            <p
+              className={`pI ${filter === "cafe" ? "active" : ""}`}
+              onClick={() => setFilter("cafe")}
+            >
+              Café
+            </p>
+            <p
+              className={filter === "bebidas" ? "active" : ""}
+              onClick={() => setFilter("bebidas")}
+            >
+              Bebidas Especiais
+            </p>
+            <p
+              className={filter === "doces" ? "active" : ""}
+              onClick={() => setFilter("doces")}
+            >
+              Doces
+            </p>
+            <p
+              className={filter === "salgados" ? "active" : ""}
+              onClick={() => setFilter("salgados")}
+            >
+              Salgados
+            </p>
+            <p
+              className={`pF ${filter === "all" ? "active" : ""}`}
+              onClick={() => setFilter("all")}
+            >
+              Todos
+            </p>
           </div>
         </div>
 
+        {/* Componente Card recebendo filtro */}
         <div>
-          <Card />
+          <Card filter={filter} animate={false} />
         </div>
       </section>
     </>
