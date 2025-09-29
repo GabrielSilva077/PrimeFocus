@@ -1,0 +1,44 @@
+.pfMenu {
+    background-color: var(--amarelo);
+    width: 100%;
+    text-align: center;
+    height: 360px;
+    color: var(--cor-principal);
+}
+
+.titleMenu {
+    font-size: clamp(3rem, 5vw, 7rem);
+    margin-top: 5%;
+}
+
+.pMenu {
+    font-size: clamp(1rem, 1.6vw, 4rem);
+    margin-bottom: 20px;
+}
+
+.mineNav{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color: var(--branco);
+}
+
+.mineNav p{
+    font-size: clamp(0.8rem, 1vw, 4rem);
+    background-color: var(--cor-principal);
+    padding: 10px 40px;
+    font-weight: bold;
+}
+
+.mineNav p:hover{
+    cursor: pointer;
+}
+
+.pI{
+    border-top-left-radius: 20px;
+}
+
+.pF{
+    border-top-right-radius: 20px;
+}

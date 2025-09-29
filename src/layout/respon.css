@@ -31,6 +31,14 @@
     .nav-list.active {
         left: 0;
     }
+
+    .logoName{
+        display: none;
+    }
+    
+    .logoImg{
+        width: 60px;
+    }
 }
 
 /* cards */

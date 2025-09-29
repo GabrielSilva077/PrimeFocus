@@ -18,7 +18,7 @@ body {
 :root {
   --cor-principal: #713A11;
   --branco: rgb(236, 233, 233);
-  --amarelo: #FEF4CF;
+  --amarelo: #FDF7D7;
   --amareloClaro: #fcf1d1d0;
   --btn-cor: #C74700;
 }
@@ -40,4 +40,8 @@ html, body {
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;
+}
+
+html {
+  scroll-behavior: smooth;
 }

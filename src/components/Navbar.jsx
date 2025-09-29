@@ -1,61 +1,66 @@
-import { useLayoutEffect, useRef } from "react";
-import "../layout/nav.css";
-import { useState } from "react";
-import Logo from "../assets/iconCafé.png";
+import { useLayoutEffect, useState } from "react";
+import { Link } from "react-router-dom"; // <-- importante
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import Logo from "../assets/iconCafé.png";
+import "../layout/nav.css";
 
 const Navbar = () => {
   useLayoutEffect(() => {
-    let tl = gsap.timeline();
-
-    tl.fromTo(
+    gsap.fromTo(
       ".navbar",
-      { y: 50, opacity: 0 },
+      { y: -50, opacity: 0 },
       { y: 0, opacity: 1, duration: 1 }
-    )
+    );
   }, []);
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <nav className="navbar">
       <div className="nomeImg">
-        <img src={Logo} alt="" className="logo" />
-        <div className="logo">G.Bean</div>
+        <img src={Logo} alt="" className="logo logoImg" />
+        <div className="logo logoName">G.Bean</div>
       </div>
-      <div
-        className={`menu-toggle ${isOpen ? "open" : ""}`}
-        onClick={toggleMenu}
-      >
+      <div className={`menu-toggle ${isOpen ? "open" : ""}`} onClick={toggleMenu}>
         <span className="bar"></span>
         <span className="bar"></span>
-        <span className="bar"></span>
+        <span className="bar barT"></span>
       </div>
 
       <ul className={`nav-list ${isOpen ? "active" : ""}`}>
         <li>
-          <a href="#">Home</a>
+          <a href="/">Home</a>
         </li>
         <li>
-          <a href="#">Sobre</a>
+          <a
+            href="#About"
+            onClick={(e) => {
+              e.preventDefault();
+              const section = document.querySelector("#About");
+              if (section) {
+                section.scrollIntoView({ behavior: "smooth" });
+                setTimeout(() => ScrollTrigger.refresh(), 300);
+              }
+            }}
+          >
+            Sobre
+          </a>
+        </li>
+
+        {/* Links para outras páginas */}
+        <li>
+          <Link to="/Cardapio">Cardápio</Link>
         </li>
         <li>
-          <a href="#">Cardápio</a>
+          <Link to="/gallery">Galeria</Link>
         </li>
         <li>
-          <a href="#">Galeria</a>
+          <Link to="/location">Localização</Link>
         </li>
         <li>
-          <a href="#">Localização</a>
-        </li>
-        <li>
-          <a href="#">Contato</a>
+          <Link to="/contact">Contato</Link>
         </li>
       </ul>
     </nav>

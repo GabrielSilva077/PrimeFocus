@@ -5,10 +5,11 @@ import "../layout/menu.css";
 import { useInView } from "react-intersection-observer";
 import { useState } from "react";
 import Card from "../components/Card";
+import "../layout/cardapio.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function MenuSection() {
+export default function CardapioSection() {
   useLayoutEffect(() => {
     let tl = gsap.timeline();
 
@@ -16,17 +17,7 @@ export default function MenuSection() {
       ".paiMenu",
       { y: 50, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.2 }
-    )
-      .fromTo(
-        ".bestSellers",
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1 }
-      )
-      .fromTo(
-        ".cards",
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5 }
-      );
+    );
   }, []);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -37,13 +28,21 @@ export default function MenuSection() {
   return (
     <>
       <section className="paiMenu">
-        <div className="cards">
-          <h2 className="bestSellers">Best Sellers</h2>
-          <Card limit={4} />
+        <div className="pfMenu">
+          <h1 className="titleMenu">Nosso Cardápio</h1>
+          <p className="pMenu">
+            Descubra nossa seleção de cafés especiais e delícias para acompanhar
+          </p>
+          <div className="mineNav">
+            <p className="pI">Café </p>
+            <p>Bebidas Especiais</p>
+            <p>Doces</p>
+            <p className="pF">Salgados</p>
+          </div>
         </div>
 
-        <div className="VerMais">
-          <a href="">Ver Mais</a>
+        <div>
+          <Card />
         </div>
       </section>
     </>

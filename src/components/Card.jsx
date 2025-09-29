@@ -37,13 +37,19 @@ const cafes = [
     imagem: Img2,
     link: "#",
   },
+  {
+    id: 5,
+    nome: "Café Especial",
+    descricao: "Sabor marcante.",
+    imagem: Img2,
+    link: "#",
+  },
 ];
 
-export default function CardList() {
+export default function CardList({ limit }) {
   const cardsRef = useRef([]);
 
   useEffect(() => {
-    
     gsap
       .timeline({
         scrollTrigger: {
@@ -55,7 +61,7 @@ export default function CardList() {
       })
       .fromTo(
         cardsRef.current,
-        { autoAlpha: 0, y: 50 }, 
+        { autoAlpha: 0, y: 50 },
         {
           autoAlpha: 1,
           y: 0,
@@ -65,9 +71,11 @@ export default function CardList() {
       );
   }, []);
 
+  const displayedCafes = limit ? cafes.slice(0, limit) : cafes;
+
   return (
     <section className="card">
-      {cafes.map((cafe, index) => (
+      {displayedCafes.map((cafe, index) => (
         <div
           key={cafe.id}
           className="cardDados"

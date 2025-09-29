@@ -57,7 +57,8 @@ export default function HeroSection() {
 
   return (
     <div
-      className="paiCabecalho"
+      className="paiCabecalho" 
+      id="Home"
       style={{ backgroundImage: `url(${images[currentImage]})` }}
     >
       <h1 className="titleHome">Golden Bean</h1>
