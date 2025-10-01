@@ -29,17 +29,17 @@
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
 }
 
-.VerMais a {
+.VerMais {
     color: var(--branco);
 }
 
 .VerMais {
     position: relative;
     z-index: 2;
-    font-size: clamp(1rem, 1.5vw, 3rem);
+    font-size: clamp(1rem, 1.1vw, 3rem);
     margin-top: -25px;
     background-color: var(--btn-cor);
-    width: 10%;
+    width: 100%;
     text-align: center;
     border-radius: 10px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);

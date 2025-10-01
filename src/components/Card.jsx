@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import images from "../components/images";
+
 import "../layout/card.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,6 +14,7 @@ const cafes = [
     descricao: "Suave e aromático.",
     imagem: images[0],
     link: "#",
+    preco: "R$ 20,00",
   },
   {
     id: 2,
@@ -20,6 +22,7 @@ const cafes = [
     descricao: "Encorpado e intenso.",
     imagem: images[1],
     link: "#",
+    preco: "R$ 20,00",
   },
   {
     id: 3,
@@ -27,6 +30,7 @@ const cafes = [
     descricao: "Sabor marcante.",
     imagem: images[2],
     link: "#",
+    preco: "R$ 20,00",
   },
   {
     id: 4,
@@ -34,6 +38,7 @@ const cafes = [
     descricao: "Café com leite cremoso.",
     imagem: images[5],
     link: "#",
+    preco: "R$ 20,00",
   },
   {
     id: 5,
@@ -41,6 +46,7 @@ const cafes = [
     descricao: "Espuma de leite com cacau.",
     imagem: images[0],
     link: "#",
+    preco: "R$ 20,00",
   },
   {
     id: 6,
@@ -48,6 +54,7 @@ const cafes = [
     descricao: "Concentrado e intenso.",
     imagem: images[5],
     link: "#",
+    preco: "R$ 20,00",
   },
 ];
 
@@ -58,6 +65,7 @@ const specialDrinks = [
     descricao: "Café com chocolate.",
     imagem: images[6],
     link: "#",
+    preco: "R$ 10,00",
   },
   {
     id: 2,
@@ -65,6 +73,7 @@ const specialDrinks = [
     descricao: "Café gelado com creme.",
     imagem: images[7],
     link: "#",
+    preco: "R$ 10,00",
   },
   {
     id: 3,
@@ -72,6 +81,7 @@ const specialDrinks = [
     descricao: "Refrescante e leve.",
     imagem: images[8],
     link: "#",
+    preco: "R$ 10,00",
   },
   {
     id: 4,
@@ -79,6 +89,7 @@ const specialDrinks = [
     descricao: "Chá verde cremoso.",
     imagem: images[9],
     link: "#",
+    preco: "R$ 10,00",
   },
 ];
 
@@ -89,6 +100,7 @@ const cakes = [
     descricao: "Delicioso bolo de café.",
     imagem: images[3],
     link: "#",
+    preco: "R$ 15,00",
   },
   {
     id: 2,
@@ -96,6 +108,7 @@ const cakes = [
     descricao: "Cremoso com base crocante.",
     imagem: images[10],
     link: "#",
+    preco: "R$ 15,00",
   },
   {
     id: 3,
@@ -103,6 +116,7 @@ const cakes = [
     descricao: "Chocolate intenso e úmido.",
     imagem: images[11],
     link: "#",
+    preco: "R$ 15,00",
   },
   {
     id: 4,
@@ -110,6 +124,7 @@ const cakes = [
     descricao: "Acidez equilibrada com doce.",
     imagem: images[12],
     link: "#",
+    preco: "R$ 15,00",
   },
 ];
 
@@ -120,6 +135,7 @@ const saltys = [
     descricao: "Croissant fresco e macio.",
     imagem: images[12],
     link: "#",
+    preco: "R$ 25,00",
   },
   {
     id: 2,
@@ -127,6 +143,7 @@ const saltys = [
     descricao: "Recheio cremoso com massa crocante.",
     imagem: images[13],
     link: "#",
+    preco: "R$ 25,00",
   },
   {
     id: 3,
@@ -134,6 +151,7 @@ const saltys = [
     descricao: "Tradicional e quentinho.",
     imagem: images[14],
     link: "#",
+    preco: "R$ 25,00",
   },
   {
     id: 4,
@@ -141,6 +159,7 @@ const saltys = [
     descricao: "Leve e saudável.",
     imagem: images[15],
     link: "#",
+    preco: "R$ 25,00",
   },
 ];
 
@@ -155,7 +174,7 @@ export default function Card({ filter, limit, animate = true }) {
           trigger: ".card",
           start: "top 80%",
           end: "bottom 90%",
-          scrub: 1,
+          scrub: true,
         },
       })
       .fromTo(
@@ -194,11 +213,14 @@ export default function Card({ filter, limit, animate = true }) {
           ref={(el) => (cardsRef.current[index] = el)}
         >
           <img src={item.imagem} alt={item.nome} className="cardsCoffe" />
-          <p className="nameCafe">{item.nome}</p>
-          <p className="descCafe">{item.descricao}</p>
-          <a href={item.link} className="btnCard">
-            Ver Mais
-          </a>
+          <div className="corCard-valores">
+            <p className="nameCafe">{item.nome}</p>
+            <p className="descCafe">{item.descricao}</p>
+            <p className="preco">{item.preco}</p>
+            <a href={item.link} className="btnCard">
+              Ver Mais
+            </a>
+          </div>
         </div>
       ))}
     </section>

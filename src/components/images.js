@@ -16,6 +16,12 @@ import Quiche from "../assets/Quiche.jpg";
 import PaodeQueijo from "../assets/PaodeQueijo.jpg";
 import SanduicheNatural from "../assets/SanduicheNatural.jpg";
 
+//icons
+import Cafe from "../assets/cafeIcon.png";
+import Bebidas from "../assets/especiais.png";
+import Doce from "../assets/doce.png";
+import Salgados from "../assets/salgado.png";
+
 const images = [
   cafe,
   cafe2,
@@ -33,6 +39,13 @@ const images = [
   Quiche,
   PaodeQueijo,
   SanduicheNatural,
+
+  //icons
+  Cafe,
+  Bebidas,
+  Doce,
+  Salgados,
 ];
+
 
 export default images;

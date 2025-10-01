@@ -5,6 +5,7 @@ import "../layout/menu.css";
 import { useInView } from "react-intersection-observer";
 import { useState } from "react";
 import Card from "../components/Card";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,6 +27,11 @@ export default function MenuSection() {
         ".cards",
         { y: 50, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.5 }
+      )
+      .fromTo(
+        ".VerMais",
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5 }
       );
   }, []);
 
@@ -42,9 +48,17 @@ export default function MenuSection() {
           <Card limit={4} />
         </div>
 
-        <div className="VerMais">
-          <a href="">Ver Mais</a>
-        </div>
+        <Link
+          to="/cardapio"
+          onClick={() => {
+            setTimeout(() => {
+              const el = document.getElementById("paiMenu");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }, 100);
+          }}
+        >
+          <div className="VerMais">Ver Mais</div>
+        </Link>
       </section>
     </>
   );

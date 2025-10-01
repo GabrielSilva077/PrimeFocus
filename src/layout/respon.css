@@ -1,6 +1,8 @@
-/* nav */
+/* =========================
+   NAVBAR
+========================= */
 
-/* Responsividade */
+/* Responsividade Navbar */
 @media (max-width: 768px) {
 
     .navbar {
@@ -32,18 +34,20 @@
         left: 0;
     }
 
-    .logoName{
+    .logoName {
         display: none;
     }
-    
-    .logoImg{
+
+    .logoImg {
         width: 60px;
     }
 }
 
-/* cards */
+/* =========================
+   CARDS E SOBRE
+========================= */
 
-
+/* Responsividade geral */
 @media (max-width: 1325px) {
     .alinhar {
         flex-wrap: wrap;
@@ -58,7 +62,6 @@
         margin-bottom: 20px;
     }
 }
-
 
 /* Tablet: 2 cards por linha */
 @media (max-width: 1024px) {
@@ -89,90 +92,45 @@
     }
 }
 
-/* Para celulares: 1 card por linha */
-@media (max-width: 768px) {
+/* =========================
+   CARDÁPIO
+========================= */
 
-    .cardDados {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: center;
-        gap: 10px;
-        height: 150px;
+/* Responsividade cardápio */
+@media (max-width: 768px) {
+    .mineNav {
+        flex-direction: column;
+        gap: 15px;
     }
 
+    .mineNav p {
+        width: 100%;
+        max-width: 300px;
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .icons {
+        width: 18px;
+        margin-left: 8px;
+    }
+}
+
+/* =========================
+   CARDS DE CAFÉ
+========================= */
+
+/* Responsividade cardsCoffee */
+@media (max-width: 768px) {
     .cardsCoffe {
-        margin-top: -20px;
-        margin-left: 10px;
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-        width: 20%;
+        height: 160px;
     }
 
     .nameCafe {
-        margin-top: -50px;
-        white-space: nowrap;
+        font-size: 1rem;
     }
 
     .descCafe {
-        width: 210px;
-        margin-top: 40px;
-        position: absolute;
-        margin-left: 120px;
-        text-align: justify;
-    }
-
-    .btnCard {
-        margin-top: -10px;
-        margin-left: 10px;
-        padding: 10px;
-        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .arrowLeft {
-        left: 5px;
-        margin-top: 90px;
-    }
-
-    .arrowRight {
-        right: 5px;
-        margin-top: 90px;
-    }
-
-    .alinhar {
-        flex-wrap: wrap;
-    }
-
-    .imgSobre {
-        width: 150%;
-        margin-left: -50px;
-    }
-
-    .titleAbout {
-        margin-top: 30px;
-        margin-bottom: 20px;
-    }
-
-    .arrowLeft{
-        display: none;
-    }
-
-    .arrowRight{
-        display: none;
-    }
-
-    .cards{
-        margin-top: -200px;
-        width: 100%;
-        height: 750px;
-    }
-
-    .cardDados{
-        margin-top: 0px;
-        margin-bottom: -10px;
-    }
-
-    .VerMais{
-        width: 20%;
-        margin-top: -10px;
+        font-size: 0.85rem;
     }
 }

@@ -6,6 +6,7 @@ import Arrow from "../assets/arrow.png";
 import plano1 from "../assets/planof.png";
 import plano2 from "../assets/planof2.png";
 import plano3 from "../assets/planof3.png";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,24 +51,30 @@ export default function HeroSection() {
   };
 
   const prevImage = () => {
-    setCurrentImage((prev) =>
-      prev === 0 ? images.length - 1 : prev - 1
-    );
+    setCurrentImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
   return (
     <div
-      className="paiCabecalho" 
+      className="paiCabecalho"
       id="Home"
       style={{ backgroundImage: `url(${images[currentImage]})` }}
     >
       <h1 className="titleHome">Golden Bean</h1>
-      <a href="#">
+      <Link
+        to="/cardapio"
+        onClick={() => {
+          setTimeout(() => {
+            const el = document.getElementById("paiMenu");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }, 100);
+        }}
+      >
         <div className="btn">
           <p className="goMenu">Ver Cardapio</p>
           <img src={Arrow} alt="" className="arrow" />
         </div>
-      </a>
+      </Link>
 
       {/* Setas de navegação */}
       <button className="arrowLeft" onClick={prevImage}>
