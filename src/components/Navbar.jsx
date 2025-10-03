@@ -23,7 +23,10 @@ const Navbar = () => {
         <img src={Logo} alt="" className="logo logoImg" />
         <div className="logo logoName">G.Bean</div>
       </div>
-      <div className={`menu-toggle ${isOpen ? "open" : ""}`} onClick={toggleMenu}>
+      <div
+        className={`menu-toggle ${isOpen ? "open" : ""}`}
+        onClick={toggleMenu}
+      >
         <span className="bar"></span>
         <span className="bar"></span>
         <span className="bar barT"></span>
@@ -48,10 +51,18 @@ const Navbar = () => {
             Sobre
           </a>
         </li>
-
-        {/* Links para outras páginas */}
         <li>
-          <Link to="/Cardapio">Cardápio</Link>
+          <Link
+            to="/cardapio"
+            onClick={() => {
+              setTimeout(() => {
+                const el = document.getElementById("paiMenu");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }, 100);
+            }}
+          >
+            <div>Cardapio</div>
+          </Link>
         </li>
         <li>
           <Link to="/gallery">Galeria</Link>

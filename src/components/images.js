@@ -22,7 +22,21 @@ import Bebidas from "../assets/especiais.png";
 import Doce from "../assets/doce.png";
 import Salgados from "../assets/salgado.png";
 
+//galeria
+import Galley1 from "../assets/gallery0.png"
+import Galley2 from "../assets/gallery1.png"
+import Galley3 from "../assets/gallery2.png"
+import Galley4 from "../assets/gallery3.png"
+import Galley5 from "../assets/gallery4.png"
+import Galley6 from "../assets/gallery5.png"
+import Galley7 from "../assets/gallery6.png"
+import Galley8 from "../assets/gallery7.png"
+import Galley9 from "../assets/gallery8.png"
+import Galley10 from "../assets/gallery9.png"
+
+
 const images = [
+  //0 a 15
   cafe,
   cafe2,
   cafe3,
@@ -40,11 +54,25 @@ const images = [
   PaodeQueijo,
   SanduicheNatural,
 
+  //16 a 19 
   //icons
   Cafe,
   Bebidas,
   Doce,
   Salgados,
+
+  //20
+  //galeria
+  Galley1,
+  Galley2,
+  Galley3,
+  Galley4,
+  Galley5,
+  Galley6,
+  Galley7,
+  Galley8,
+  Galley9,
+  Galley10,
 ];
 
 

@@ -97,3 +97,14 @@
     justify-content: flex-start;
   }
 }
+
+.footer-link{
+  border: none;
+  background-color: transparent;
+  color: var(--branco);
+  text-decoration: underline;
+}
+
+.footer-link:hover{
+  color: var(--btn-cor);
+}
