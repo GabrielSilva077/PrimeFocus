@@ -1,24 +1,32 @@
-import { useEffect } from "react";
+import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../layout/about.css";
 import Sobre from "../assets/sobre.png";
+import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HeroSection() {
-  useEffect(() => {
+  // Ref para a seção
+  const sobrePaiRef = useRef(null);
+
+  // Animação com useGSAP
+  useGSAP(() => {
+    const section = sobrePaiRef.current;
+    if (!section) return;
+
     // Cria a timeline com ScrollTrigger
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: ".sobrePai",
+        trigger: section,
         start: "top 80%",
         end: "bottom 90%",
         scrub: 1,
       },
     });
 
-    tl.to(".sobrePai", {
+    tl.to(section, {
       opacity: 1,
       y: 0,
       duration: 1.5,
@@ -30,12 +38,9 @@ export default function HeroSection() {
 
     // 🚀 garante que se já estiver visível (caso do clique na navbar),
     // a animação execute automaticamente
-    const section = document.querySelector(".sobrePai");
-    if (section) {
-      const rect = section.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        tl.play(0); // força a animação começar
-      }
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      tl.play(0); // força a animação começar
     }
 
     // cleanup
@@ -50,6 +55,7 @@ export default function HeroSection() {
       <section
         className="sobrePai"
         id="About"
+        ref={sobrePaiRef}
         style={{ opacity: 0, transform: "translateY(50px)" }}
       >
         <div className="alinhar">

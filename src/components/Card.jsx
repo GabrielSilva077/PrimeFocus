@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
+import React, { useRef } from "react";
+import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import images from "../components/images";
 
 import "../layout/card.css";
@@ -166,25 +167,7 @@ const saltys = [
 export default function Card({ filter, limit, animate = true }) {
   const cardsRef = useRef([]);
 
-  useEffect(() => {
-    if (!animate) return; // para não rodar
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: ".card",
-          start: "top 80%",
-          end: "bottom 90%",
-          scrub: true,
-        },
-      })
-      .fromTo(
-        cardsRef.current,
-        { autoAlpha: 0, y: 50 },
-        { autoAlpha: 1, y: 0, ease: "power1.out", stagger: 0.2 }
-      );
-  }, [filter, animate]);
-
-  // Função para filtrar itens
+  // 🔎 Filtragem de itens (mantida igual)
   const getFilteredItems = () => {
     switch (filter) {
       case "cafe":
@@ -203,6 +186,39 @@ export default function Card({ filter, limit, animate = true }) {
   const displayedItems = limit
     ? getFilteredItems().slice(0, limit)
     : getFilteredItems();
+
+  // 🎬 Nova animação estilo cinematográfico (sem mudar o layout)
+  useGSAP(() => {
+    if (!animate) return;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".card",
+        start: "top 80%",
+        end: "bottom 10%",
+        scrub: true,
+      },
+    });
+
+    tl.fromTo(
+      cardsRef.current,
+      { yPercent: 40, opacity: 0, scale: 0.95 },
+      {
+        yPercent: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 1.2,
+        ease: "expo.out",
+        stagger: 0.15,
+      }
+    ).to(cardsRef.current, {
+      opacity: 0,
+      yPercent: -10,
+      ease: "power2.inOut",
+      duration: 1,
+      stagger: 0.1,
+    });
+  }, [filter, animate]);
 
   return (
     <section className="card">

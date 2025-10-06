@@ -28,7 +28,7 @@
   display: flex;
   justify-content: center;
   background-color: var(--cor-principal);
-  width: 250px;
+  width: 100%;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
@@ -73,6 +73,7 @@
 
 .arrowLeft {
   left: 50px;
+  opacity: 0.5;
 }
 
 .arrowRight {

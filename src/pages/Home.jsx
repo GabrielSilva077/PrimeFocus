@@ -1,6 +1,7 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import "../layout/home.css";
 import Arrow from "../assets/arrow.png";
 import plano1 from "../assets/planof.png";
@@ -24,9 +25,9 @@ export default function HeroSection() {
     return () => clearInterval(interval);
   }, []);
 
-  // Animação GSAP
-  useLayoutEffect(() => {
-    let tl = gsap.timeline();
+  // Animação GSAP (substitui o useLayoutEffect)
+  useGSAP(() => {
+    const tl = gsap.timeline();
 
     tl.fromTo(
       ".paiCabecalho",
@@ -70,7 +71,7 @@ export default function HeroSection() {
           }, 100);
         }}
       >
-        <div className="btn">
+        <div className="btn" id="btnCardapio">
           <p className="goMenu">Ver Cardapio</p>
           <img src={Arrow} alt="" className="arrow" />
         </div>

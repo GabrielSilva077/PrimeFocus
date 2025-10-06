@@ -1,24 +1,29 @@
-import { useLayoutEffect, useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom"; // <-- importante
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Logo from "../assets/iconCafé.png";
 import "../layout/nav.css";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = () => {
-  useLayoutEffect(() => {
-    gsap.fromTo(
-      ".navbar",
-      { y: -50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1 }
-    );
+  const navbarRef = useRef(null); // ref para navbar
+
+  // Animação GSAP
+  useGSAP(() => {
+    const nav = navbarRef.current;
+    if (!nav) return;
+
+    gsap.fromTo(nav, { y: -50, opacity: 0 }, { y: 0, opacity: 1, duration: 1 });
   }, []);
 
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="navbar">
+    <nav className="navbar" ref={navbarRef}>
       <div className="nomeImg">
         <img src={Logo} alt="" className="logo logoImg" />
         <div className="logo logoName">G.Bean</div>

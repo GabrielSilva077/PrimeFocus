@@ -90,6 +90,23 @@
         flex: 0 1 90%;
         /* ocupa quase toda a largura da tela */
     }
+
+    .arrowLeft,
+    .arrowRight {
+        margin-top: 50px;
+    }
+
+    .arrowLeft {
+        left: 10px;
+    }
+
+    .arrowRight {
+        right: 10px;
+    }
+
+    #btnCardapio{
+        margin-top: 50px;
+    }
 }
 
 /* =========================
