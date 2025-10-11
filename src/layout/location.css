@@ -1,0 +1,73 @@
+.center {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+#location {
+    font-size: clamp(3rem, 4vw, 7rem);
+    color: var(--cor-principal);
+}
+
+.imgs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1%;
+    padding: 20px;
+}
+
+.imgMap {
+    width: 100%;
+    height: 420px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.imgTextMap {
+    background-color: var(--branco);
+    padding: 25px;
+    width: 30%;
+    height: 460px;
+    border-radius: 20px;
+}
+
+.imgCoffeeShop {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.imgTextCoff {
+    background-color: var(--branco);
+    padding: 20px;
+    width: 20%;
+    height: 460px;
+    border-radius: 20px;
+}
+
+.imgP {
+    font-size: clamp(1rem, 1vw, 2rem);
+    display: flex;
+    justify-content: center;
+    text-align: justify;
+    padding: 0px 40px;
+    color: var(--cor-principal);
+}
+
+.ContatoDiv {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.iconsContato {
+    width: 30px;
+}
+
+.iconsContato:hover{
+    cursor: pointer;
+}

@@ -73,7 +73,7 @@ const Gallery = () => {
   return (
     <div id="about">
       <section className="sectionGallery">
-        <h1 className="tilteGaleria">Nossa Galeria</h1>
+        <h1 className="tilteGaleria" id="gallery">Nossa Galeria</h1>
         <div className="imgsAnimation">
           <GalleryBlock {...firstGallery} />
           <GalleryBlock {...secondGallery} />

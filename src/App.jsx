@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer"
 import "./global.css";
 import "./layout/respon.css";
+import Location from "./pages/Location";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Home />
               <Menu />
               <About />
+              <Location />
             </>
           }
         />

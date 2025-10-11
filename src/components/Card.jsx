@@ -196,7 +196,7 @@ export default function Card({ filter, limit, animate = true }) {
         trigger: ".card",
         start: "top 80%",
         end: "bottom 10%",
-        scrub: true,
+        scrub: 1,
       },
     });
 

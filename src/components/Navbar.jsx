@@ -33,8 +33,8 @@ const Navbar = () => {
         onClick={toggleMenu}
       >
         <span className="bar"></span>
-        <span className="bar"></span>
         <span className="bar barT"></span>
+        <span className="bar"></span>
       </div>
 
       <ul className={`nav-list ${isOpen ? "active" : ""}`}>
@@ -42,19 +42,19 @@ const Navbar = () => {
           <a href="/">Home</a>
         </li>
         <li>
-          <a
-            href="#About"
-            onClick={(e) => {
-              e.preventDefault();
-              const section = document.querySelector("#About");
-              if (section) {
-                section.scrollIntoView({ behavior: "smooth" });
-                setTimeout(() => ScrollTrigger.refresh(), 300);
-              }
+          <Link
+            to="/"
+            onClick={() => {
+              setTimeout(() => {
+                const el = document.getElementById("About");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+              }, 200);
             }}
           >
-            Sobre
-          </a>
+            <div>Sobre</div>
+          </Link>
         </li>
         <li>
           <Link
@@ -70,10 +70,32 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/gallery">Galeria</Link>
+          <Link
+            to="/gallery"
+            onClick={() => {
+              setTimeout(() => {
+                const el = document.getElementById("about");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }, 100);
+            }}
+          >
+            <div>Galeria</div>
+          </Link>
         </li>
         <li>
-          <Link to="/location">Localização</Link>
+          <a
+            href="#location"
+            onClick={(e) => {
+              e.preventDefault();
+              const section = document.querySelector("#About");
+              if (section) {
+                section.scrollIntoView({ behavior: "smooth" });
+                setTimeout(() => ScrollTrigger.refresh(), 300);
+              }
+            }}
+          >
+            Localização
+          </a>
         </li>
         <li>
           <Link to="/contact">Contato</Link>

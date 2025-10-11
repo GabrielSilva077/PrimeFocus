@@ -23,17 +23,20 @@ import Doce from "../assets/doce.png";
 import Salgados from "../assets/salgado.png";
 
 //galeria
-import Galley1 from "../assets/gallery0.png"
-import Galley2 from "../assets/gallery1.png"
-import Galley3 from "../assets/gallery2.png"
-import Galley4 from "../assets/gallery3.png"
-import Galley5 from "../assets/gallery4.png"
-import Galley6 from "../assets/gallery5.png"
-import Galley7 from "../assets/gallery6.png"
-import Galley8 from "../assets/gallery7.png"
-import Galley9 from "../assets/gallery8.png"
-import Galley10 from "../assets/gallery9.png"
+import Galley1 from "../assets/gallery0.png";
+import Galley2 from "../assets/gallery1.png";
+import Galley3 from "../assets/gallery2.png";
+import Galley4 from "../assets/gallery3.png";
+import Galley5 from "../assets/gallery4.png";
+import Galley6 from "../assets/gallery5.png";
+import Galley7 from "../assets/gallery6.png";
+import Galley8 from "../assets/gallery7.png";
+import Galley9 from "../assets/gallery8.png";
+import Galley10 from "../assets/gallery9.png";
 
+//icons contatos
+import Email from "../assets/email.png";
+import Phone from "../assets/Phone.png";
 
 const images = [
   //0 a 15
@@ -54,14 +57,14 @@ const images = [
   PaodeQueijo,
   SanduicheNatural,
 
-  //16 a 19 
+  //16 a 19
   //icons
   Cafe,
   Bebidas,
   Doce,
   Salgados,
 
-  //20
+  //20 a 29
   //galeria
   Galley1,
   Galley2,
@@ -73,7 +76,12 @@ const images = [
   Galley8,
   Galley9,
   Galley10,
-];
 
+  //30 a 31
+  //icons
+
+  Email,
+  Phone,
+];
 
 export default images;
