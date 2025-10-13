@@ -1,6 +1,7 @@
 import React from "react";
 import images from "../components/images";
 import "../layout/location.css";
+import { Link } from "react-router-dom";
 
 const Location = () => {
   return (
@@ -31,8 +32,19 @@ const Location = () => {
               para apreciar um bom café e bons momentos.
             </p>
             <div className="ContatoDiv">
-              <img src={images[31]} alt="" className="iconsContato"/>
-              <img src={images[30]} alt="" className="iconsContato"/>
+              <Link
+                to="/Contact"
+                onClick={() => {
+                  setTimeout(() => {
+                    const el = document.getElementById("paiContact");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }, 100);
+                }}
+              >
+                <img src={images[31]} alt="" className="iconsContato" />
+              </Link>
+
+              <img src={images[30]} alt="" className="iconsContato" />
             </div>
           </div>
         </div>
