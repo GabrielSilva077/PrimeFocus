@@ -114,3 +114,39 @@ body {
             transparent 4px);
     pointer-events: none;
 }
+
+
+
+.sectionGallery {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    /* espaço entre galerias */
+    margin: 0 auto;
+}
+
+.top-grid,
+.bottom-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1.25rem;
+    /* gap-5 */
+    margin-bottom: 1.25rem;
+}
+
+.top-grid>div,
+.bottom-grid>div {
+    border-radius: 1.5rem;
+    /* rounded-3xl */
+    overflow: hidden;
+    height: 20rem;
+    position: relative;
+}
+
+.top-grid img,
+.bottom-grid img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}

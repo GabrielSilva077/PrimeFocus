@@ -7,9 +7,9 @@ import Cardapio from "./pages/Cardapio";
 import Gallery from "./pages/Gallery"
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer"
+import Location from "./pages/Location";
 import "./global.css";
 import "./layout/respon.css";
-import Location from "./pages/Location";
 
 function App() {
   return (

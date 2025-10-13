@@ -18,7 +18,7 @@ body {
 :root {
   --cor-principal: #713A11;
   --cor-principal--hover: #713b11e8;
-  --branco: rgb(236, 233, 233);
+  --branco: rgba(248, 246, 246, 0.507);
   --amarelo: #FDF7D7;
   --amareloClaro: #fcf1d1d0;
   --btn-cor: #C74700;
