@@ -36,7 +36,7 @@ import Galley10 from "../assets/gallery9.png";
 
 //icons contatos
 import Email from "../assets/email.png";
-import Phone from "../assets/Phone.png";
+import Phone from "../assets/phone.png";
 
 const images = [
   //0 a 15
