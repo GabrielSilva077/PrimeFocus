@@ -83,22 +83,34 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <a
-            href="#location"
-            onClick={(e) => {
-              e.preventDefault();
-              const section = document.querySelector("#About");
-              if (section) {
-                section.scrollIntoView({ behavior: "smooth" });
-                setTimeout(() => ScrollTrigger.refresh(), 300);
-              }
+          <Link
+            to="/"
+            onClick={() => {
+              setTimeout(() => {
+                const el = document.getElementById("location");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+              }, 200);
             }}
           >
-            Localização
-          </a>
+            <div>Localização</div>
+          </Link>
         </li>
         <li>
-          <Link to="/contact">Contato</Link>
+          <Link
+            to="/Contact"
+            onClick={() => {
+              setTimeout(() => {
+                const el = document.getElementById("paiContact");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+              }, 200);
+            }}
+          >
+            <div>Contato</div>
+          </Link>
         </li>
       </ul>
     </nav>

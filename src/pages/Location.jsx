@@ -1,12 +1,61 @@
-import React from "react";
+import React, { useRef } from "react";
 import images from "../components/images";
 import "../layout/location.css";
 import { Link } from "react-router-dom";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import "../layout/home.css";
 
-const Location = () => {
+export default function Location() {
+  // Ref para a seção
+  const locationPaiRef = useRef(null);
+
+  // Animação com useGSAP
+  useGSAP(() => {
+    const section = locationPaiRef.current;
+    if (!section) return;
+
+    // Cria a timeline com ScrollTrigger
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top 80%",
+        end: "bottom 90%",
+        scrub: 1,
+      },
+    });
+
+    tl.to(section, {
+      opacity: 1,
+      y: 0,
+      duration: 1.5,
+      ease: "power2.out",
+    });
+
+    // 🚀 força recalcular o ScrollTrigger
+    ScrollTrigger.refresh();
+
+    // 🚀 garante que se já estiver visível (caso do clique na navbar),
+    // a animação execute automaticamente
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      tl.play(0); // força a animação começar
+    }
+
+    // cleanup
+    return () => {
+      tl.kill();
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   return (
     <section className="center">
-      <div>
+      <div
+        ref={locationPaiRef}
+        style={{ opacity: 0, transform: "translateY(50px)" }}
+      >
         <h2 id="location">Nossa Localização</h2>
 
         <div className="imgs">
@@ -59,6 +108,4 @@ const Location = () => {
       </div>
     </section>
   );
-};
-
-export default Location;
+}

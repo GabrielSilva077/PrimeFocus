@@ -5,6 +5,7 @@ import Menu from "./pages/Menu";
 import About from "./pages/About";
 import Cardapio from "./pages/Cardapio";
 import Gallery from "./pages/Gallery"
+import Contact from "./pages/Contact"
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer"
 import Location from "./pages/Location";
@@ -31,6 +32,7 @@ function App() {
         {/* Página separada */}
         <Route path="/cardapio" element={<Cardapio />} />
         <Route path="/gallery" element={<Gallery />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer />
     </Router>

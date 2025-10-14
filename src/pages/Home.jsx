@@ -16,6 +16,13 @@ export default function HeroSection() {
 
   const images = [plano1, plano2, plano3];
 
+  useEffect(() => {
+    images.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   // Troca automática das imagens
   useEffect(() => {
     const interval = setInterval(() => {
@@ -56,11 +63,15 @@ export default function HeroSection() {
   };
 
   return (
-    <div
-      className="paiCabecalho"
-      id="Home"
-      style={{ backgroundImage: `url(${images[currentImage]})` }}
-    >
+    <div className="paiCabecalho" id="Home">
+      {images.map((img, index) => (
+        <div
+          key={index}
+          className={`bgImage ${index === currentImage ? "active" : ""}`}
+          style={{ backgroundImage: `url(${img})` }}
+        />
+      ))}
+
       <h1 className="titleHome">Golden Bean</h1>
       <Link
         to="/cardapio"
