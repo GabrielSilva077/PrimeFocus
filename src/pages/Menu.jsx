@@ -54,7 +54,7 @@ export default function MenuSection() {
           <h2 className="bestSellers" ref={bestSellersRef}>
             Best Sellers
           </h2>
-          <Card limit={4} />
+          <Card limit={4} modalOffset={-520} />
         </div>
 
         <Link

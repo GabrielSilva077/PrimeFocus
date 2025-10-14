@@ -35,9 +35,9 @@
 
 .VerMais {
     position: relative;
-    z-index: 2;
+    z-index: 1;
     font-size: clamp(1rem, 1.1vw, 3rem);
-    margin-top: -25px;
+    margin-top: -10px;
     background-color: var(--btn-cor);
     width: 100%;
     text-align: center;

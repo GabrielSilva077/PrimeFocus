@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Link } from "react-router-dom"; // <-- importante
+import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Logo from "../assets/iconCafé.png";
@@ -9,18 +9,20 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = () => {
-  const navbarRef = useRef(null); // ref para navbar
+  const navbarRef = useRef(null);
 
   // Animação GSAP
   useGSAP(() => {
     const nav = navbarRef.current;
     if (!nav) return;
-
     gsap.fromTo(nav, { y: -50, opacity: 0 }, { y: 0, opacity: 1, duration: 1 });
   }, []);
 
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  // Fecha o menu sem alterar os scrolls existentes
+  const closeMenu = () => setIsOpen(false);
 
   return (
     <nav className="navbar" ref={navbarRef}>
@@ -28,6 +30,7 @@ const Navbar = () => {
         <img src={Logo} alt="" className="logo logoImg" />
         <div className="logo logoName">G.Bean</div>
       </div>
+
       <div
         className={`menu-toggle ${isOpen ? "open" : ""}`}
         onClick={toggleMenu}
@@ -39,12 +42,26 @@ const Navbar = () => {
 
       <ul className={`nav-list ${isOpen ? "active" : ""}`}>
         <li>
-          <a href="/">Home</a>
+          <Link
+            to="/"
+            onClick={() => {
+              closeMenu();
+              setTimeout(() => {
+                const el = document.getElementById("Home");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+              }, 200);
+            }}
+          >
+            <div>Home</div>
+          </Link>
         </li>
         <li>
           <Link
             to="/"
             onClick={() => {
+              closeMenu();
               setTimeout(() => {
                 const el = document.getElementById("About");
                 if (el) {
@@ -60,6 +77,7 @@ const Navbar = () => {
           <Link
             to="/cardapio"
             onClick={() => {
+              closeMenu();
               setTimeout(() => {
                 const el = document.getElementById("paiMenu");
                 if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -73,6 +91,7 @@ const Navbar = () => {
           <Link
             to="/gallery"
             onClick={() => {
+              closeMenu();
               setTimeout(() => {
                 const el = document.getElementById("about");
                 if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -86,6 +105,7 @@ const Navbar = () => {
           <Link
             to="/"
             onClick={() => {
+              closeMenu();
               setTimeout(() => {
                 const el = document.getElementById("location");
                 if (el) {
@@ -101,6 +121,7 @@ const Navbar = () => {
           <Link
             to="/Contact"
             onClick={() => {
+              closeMenu();
               setTimeout(() => {
                 const el = document.getElementById("paiContact");
                 if (el) {

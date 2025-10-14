@@ -164,12 +164,13 @@ const saltys = [
   },
 ];
 
-export default function Card({ filter, limit, animate = true }) {
+export default function Card({ filter, limit, modalOffset,  animate = true }) {
   const cardsRef = useRef([]);
   const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar a visibilidade da modal
   const [selectedItem, setSelectedItem] = useState(null); // Estado para armazenar o item selecionado
 
   // Função para abrir a modal com o item clicado
+  // card.jsx
   const handleOpenModal = (item, event) => {
     const cardRect = event.currentTarget.getBoundingClientRect();
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -177,13 +178,14 @@ export default function Card({ filter, limit, animate = true }) {
     setSelectedItem({
       ...item,
       position: {
-        top: cardRect.top + scrollTop + cardRect.height / 2 - 500,
-        left: cardRect.left + cardRect.width / 2,
+        top: cardRect.top + scrollTop + cardRect.height / 2 - 500 + (modalOffset || 0),
+        left: cardRect.left + cardRect.width / 2.1
       },
     });
 
     setIsModalOpen(true);
   };
+
 
   // Função para fechar a modal
   const handleCloseModal = () => {
