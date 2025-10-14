@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -166,6 +166,30 @@ const saltys = [
 
 export default function Card({ filter, limit, animate = true }) {
   const cardsRef = useRef([]);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar a visibilidade da modal
+  const [selectedItem, setSelectedItem] = useState(null); // Estado para armazenar o item selecionado
+
+  // Função para abrir a modal com o item clicado
+  const handleOpenModal = (item, event) => {
+    const cardRect = event.currentTarget.getBoundingClientRect();
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    setSelectedItem({
+      ...item,
+      position: {
+        top: cardRect.top + scrollTop + cardRect.height / 2 - 500,
+        left: cardRect.left + cardRect.width / 2,
+      },
+    });
+
+    setIsModalOpen(true);
+  };
+
+  // Função para fechar a modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedItem(null);
+  };
 
   // 🔎 Filtragem de itens (mantida igual)
   const getFilteredItems = () => {
@@ -187,7 +211,7 @@ export default function Card({ filter, limit, animate = true }) {
     ? getFilteredItems().slice(0, limit)
     : getFilteredItems();
 
-  // 🎬 Nova animação estilo cinematográfico (sem mudar o layout)
+  // 🎬 Nova animação estilo cinematográfico (mantida igual)
   useGSAP(() => {
     if (!animate) return;
 
@@ -227,18 +251,50 @@ export default function Card({ filter, limit, animate = true }) {
           key={`${item.id}-${index}`}
           className="cardDados"
           ref={(el) => (cardsRef.current[index] = el)}
+          onClick={(e) => handleOpenModal(item, e)}
         >
           <img src={item.imagem} alt={item.nome} className="cardsCoffe" />
           <div className="corCard-valores">
             <p className="nameCafe">{item.nome}</p>
-            <p className="descCafe">{item.descricao}</p>
             <p className="preco">{item.preco}</p>
-            <a href={item.link} className="btnCard">
+            {/* Modificado: Botão em vez de link, para abrir a modal */}
+            <button className="btnCard" onClick={() => handleOpenModal(item)}>
               Ver Mais
-            </a>
+            </button>
           </div>
         </div>
       ))}
+
+      {/* Modal: Renderizada condicionalmente */}
+      {isModalOpen && selectedItem && (
+        <div className="modal-overlay" onClick={handleCloseModal}>
+          <div
+            className="modal-content"
+            style={{
+              top: selectedItem.position.top + "px",
+              left: selectedItem.position.left + "px",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2>{selectedItem.nome}</h2>
+            <img
+              src={selectedItem.imagem}
+              alt={selectedItem.nome}
+              className="modal-image"
+            />
+            <p>
+              <strong className="desc">Descrição:</strong>{" "}
+              {selectedItem.descricao}
+            </p>
+            <p>
+              <strong className="preco">Preço:</strong> {selectedItem.preco}
+            </p>
+            <button onClick={handleCloseModal} className="btnClose">
+              Fechar
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
