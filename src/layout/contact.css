@@ -1,0 +1,137 @@
+#paiContact {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    box-sizing: border-box;
+}
+
+.alinhamento {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+}
+
+.titleContact {
+    margin-bottom: 40px;
+    font-size: clamp(2.5rem, 4vw, 5rem);
+    color: var(--cor-principal);
+}
+
+.divForm {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.form {
+    background-color: var(--branco);
+    padding: 30px;
+    border-radius: 0px 15px 15px 0px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 450px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form input[type="text"],
+.form input[type="email"],
+.form textarea {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+.form input[type="text"]:focus,
+.form input[type="email"]:focus,
+.form textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.message {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.btnEnviar {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ee620b;
+    color: var(--branco);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btnEnviar:hover {
+    background-color: #ee620bcc;
+}
+
+.imgContact {
+    max-width: 683px;
+    width: 100%;
+    border-radius: 15px 0px 0px 15px;
+    object-fit: cover;
+}
+
+
+/* Responsividade */
+@media (max-width: 900px) {
+    .divForm {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .imgContact {
+        margin-top: 30px;
+        border-radius: 15px 15px 0px 0px;
+    }
+
+    .form {
+        border-radius: 0px 0px 15px 15px;
+    }
+
+    .titleContact {
+        margin-top: 50px;
+        margin-bottom: 0px;
+    }
+}
+
+@media (max-width: 1181px) {
+    .divForm {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .imgContact {
+        max-width: 450px;
+        margin-top: 30px;
+        border-radius: 15px 15px 0px 0px;
+    }
+
+    .form {
+        border-radius: 0px 0px 15px 15px;
+    }
+
+    .titleContact {
+        margin-top: 50px;
+        margin-bottom: 0px;
+    }
+}
