@@ -20,6 +20,10 @@
   font-weight: bold;
 }
 
+.logoName{
+  margin-top: 10px;
+}
+
 .nav-list {
   list-style: none;
   display: flex;

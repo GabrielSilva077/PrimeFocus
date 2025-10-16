@@ -23,6 +23,11 @@
   width: 100%;
   height: 100vh;
   overflow: hidden;
+
+      opacity: 0;
+  transform: translateY(50px);
+  /* mantém a transição instantânea por padrão (evita flicker por CSS transitions) */
+  will-change: transform, opacity;
 }
 
 /* ====== CAMADAS DE IMAGEM ====== */
