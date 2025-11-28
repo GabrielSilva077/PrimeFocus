@@ -1,40 +1,56 @@
 /* Navbar */
 .navbar {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
-  background-color: rgba(10, 10, 10, 0.6); /* fundo preto semi-transparente */
-  backdrop-filter: blur(10px); /* efeito blur */
-  -webkit-backdrop-filter: blur(10px); /* suporte Safari */
-  padding: 0 200px;
-  height: 60px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0 100px;
+  height: 80px;
   position: fixed;
   width: 100%;
-  z-index: 1; /* garante que fique acima de outros elementos */
+  z-index: 4;
   top: 0;
+  gap: 100px;
+  border: 1px solid #61423849;
 }
 
 .logo {
-  color: white;
+  color: #614238;
   font-size: 1.5rem;
   font-weight: bold;
 }
 
-.logoName{
+.logoName {
   margin-top: 10px;
 }
 
+/* ===== MENU LIST ===== */
 .nav-list {
   list-style: none;
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 60px;
+  background-color: #614238;
+  padding: 20px;
+  width: 200px;
+  border-radius: 6px;
+  gap: 15px;
+  left: 0;
+}
+
+.nav-list.active {
   display: flex;
+  /* 🔥 O menu só aparece ao clicar no hambúrguer */
 }
 
 .nav-list li {
-  margin-left: 20px;
+  margin-left: 0;
 }
 
 .nav-list a {
-  color: white;
+  color: #ffffff;
   text-decoration: none;
   font-size: 1rem;
   transition: color 0.3s;
@@ -42,20 +58,21 @@
 
 .nav-list a:hover {
   color: var(--cor-principal);
-  /* dourado */
 }
 
-/* Hamburger menu */
+/* ===== HAMBURGER MENU ===== */
 .menu-toggle {
-  display: none;
+  display: flex !important;
+  /* 🔥 Sempre visível */
   flex-direction: column;
   cursor: pointer;
+  z-index: 999;
 }
 
 .menu-toggle .bar {
   height: 5px;
   width: 25px;
-  background-color: white;
+  background-color: rgb(7, 7, 7);
   margin: 2px 0;
   transition: 0.3s;
   border-radius: 2px;
@@ -68,6 +85,7 @@
   border-radius: 50px;
 }
 
+/* Logo */
 .logo {
   width: 5%;
 }
@@ -75,5 +93,43 @@
 .nomeImg {
   display: flex;
   text-align: center;
-  gap: 5%;
+  gap: 2%;
+}
+
+
+.linha{
+  height: 950px;
+  top: 0px;
+  width: 1px;
+  background-color: black;
+  display: flex;
+  position: fixed;
+  margin-left: 50px;
+}
+
+.linkPort {
+  right: 0px;
+  background-color: #614238;
+  color: white;
+  width: 95px;
+  height: 40px;
+  display: flex;
+  align-items: center;    
+  justify-content: center;
+  text-align: center;
+  flex-wrap: nowrap;
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  margin-left: 10%;
+}
+
+.gallery-back-btn{
+  cursor: pointer;
+}
+
+
+@media (max-width: 1590px) {
+  .linha{
+    display: none;
+  }
 }

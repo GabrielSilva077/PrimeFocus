@@ -1,84 +1,310 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
-import "../layout/home.css";
-import "../layout/home.css";
 import "../layout/gallery.css";
-import images from "../components/images";
+import { images } from "../components/images";
+import Navbar from "../components/Navbar";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
-const GalleryBlock = ({ topImages, bottomImages }) => {
+// =============================
+// NAV DE FILTRO
+// =============================
+const GalleryFilterNav = ({ active, setActive, className }) => {
+  const filters = [
+    { label: "📸 Todas", value: "all" },
+    { label: "💍 Eventos", value: "eventos" },
+  ];
+
   return (
-    <div>
-      <div className="top-grid">
-        {topImages.map(({ img, span, alt }, i) => (
-          <div key={i} className={`col-span-${span}`}>
-            <div className="noisy" />
-            <img src={img} alt={alt} />
-          </div>
-        ))}
-      </div>
+    <nav className={className}>
+      {filters.map((item) => (
+        <button
+          key={item.value}
+          className={`filter-btn ${active === item.value ? "active" : ""}`}
+          onClick={() => setActive(item.value)}
+        >
+          {item.label}
+        </button>
+      ))}
+    </nav>
+  );
+};
 
-      <div className="bottom-grid">
-        {bottomImages.map(({ img, span, alt }, i) => (
-          <div key={i} className={`col-span-${span}`}>
-            <div className="noisy" />
-            <img src={img} alt={alt} />
+// =============================
+// MODAL DE IMAGEM COM ZOOM, LABEL E DOTS
+// =============================
+const ImageModal = ({
+  isOpen,
+  images,
+  currentIndex,
+  onClose,
+  setCurrentIndex,
+}) => {
+  const [fade, setFade] = useState(true);
+  const [isClosing, setIsClosing] = useState(false);
+
+  const modalRef = useRef(null);
+  const overlayRef = useRef(null);
+
+  // ================================
+  // ANIMAÇÃO AO ABRIR
+  // ================================
+  useEffect(() => {
+    if (isOpen) {
+      setIsClosing(false);
+
+      if (overlayRef.current) {
+        overlayRef.current.style.pointerEvents = "auto";
+        overlayRef.current.style.visibility = "visible";
+      }
+
+      gsap.fromTo(
+        overlayRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.35, ease: "power2.out" }
+      );
+
+      gsap.fromTo(
+        modalRef.current,
+        { scale: 0.7, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.45, ease: "power2.out" }
+      );
+    }
+  }, [isOpen]);
+
+  // ================================
+  // ANIMAÇÃO AO FECHAR
+  // ================================
+  const handleClose = () => {
+    setIsClosing(true);
+
+    gsap.to(overlayRef.current, {
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in",
+      onComplete: () => {
+        if (overlayRef.current) {
+          overlayRef.current.style.pointerEvents = "none";
+          overlayRef.current.style.visibility = "hidden";
+        }
+      },
+    });
+
+    gsap.to(modalRef.current, {
+      scale: 0.7,
+      opacity: 0,
+      duration: 0.35,
+      ease: "power2.in",
+      onComplete: () => {
+        onClose();
+      },
+    });
+  };
+
+  if (!isOpen && !isClosing) return null;
+
+  const handlePrev = () => {
+    setFade(false);
+    setTimeout(() => {
+      setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+      setFade(true);
+    }, 200);
+  };
+
+  const handleNext = () => {
+    setFade(false);
+    setTimeout(() => {
+      setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+      setFade(true);
+    }, 200);
+  };
+
+  return (
+    <div className="modal-overlay" ref={overlayRef}>
+      <div className="modal-contentGallery" ref={modalRef}>
+        {/* Label no canto superior esquerdo */}
+        <div className="modal-label">{images[currentIndex].category}</div>
+
+        <button className="modal-close" onClick={handleClose}>
+          <X size={24} />
+        </button>
+
+        <button className="modal-nav left" onClick={handlePrev}>
+          <ChevronLeft size={32} />
+        </button>
+
+        <img
+          src={images[currentIndex].src}
+          alt={images[currentIndex].alt}
+          className={`modal-image ${fade ? "fade-in" : "fade-out"}`}
+        />
+
+        <button className="modal-nav right" onClick={handleNext}>
+          <ChevronRight size={32} />
+        </button>
+
+        {/* ================================
+            PAGINATION DOTS
+        ================================ */}
+        <div className="pagination-wrapper">
+          <div className="pagination-dots">
+            {images.map((_, index) => (
+              <div
+                key={index}
+                className={`dot ${currentIndex === index ? "active" : ""}`}
+                onClick={() => setCurrentIndex(index)}
+              ></div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
 };
 
+// =============================
+// BLOCO DA GALERIA (DINÂMICO)
+// =============================
+const GalleryBlock = ({ images, openModal }) => {
+  const rows = [];
+  for (let i = 0; i < images.length; i += 5) {
+    rows.push(images.slice(i, i + 5));
+  }
+
+  return (
+    <>
+      {rows.map((group, index) => {
+        const topImages = group.slice(0, 3);
+        const bottomImages = group.slice(3, 5);
+
+        return (
+          <div key={index}>
+            <div className="top-grid">
+              {topImages.map((img, i) => (
+                <div
+                  key={i}
+                  className={`col-span-${i === 1 ? 6 : 3}`}
+                  onClick={() => openModal(img)}
+                >
+                  <div className="noisy" />
+                  <img src={img.src} alt={img.alt} />
+                </div>
+              ))}
+            </div>
+
+            <div className="bottom-grid">
+              {bottomImages.map((img, i) => (
+                <div
+                  key={i}
+                  className={`col-span-${i === 0 ? 8 : 4}`}
+                  onClick={() => openModal(img)}
+                >
+                  <div className="noisy" />
+                  <img src={img.src} alt={img.alt} />
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
+// =============================
+// GALERIA PRINCIPAL
+// =============================
 const Gallery = () => {
-  const firstGallery = {
-    topImages: [
-      { span: 3, img: images[20], alt: "grid-img-1" },
-      { span: 6, img: images[21], alt: "grid-img-2" },
-      { span: 3, img: images[22], alt: "grid-img-3" },
-    ],
-    bottomImages: [
-      { span: 8, img: images[23], alt: "grid-img-4" },
-      { span: 4, img: images[24], alt: "grid-img-5" },
-    ],
+  const navbarRef = useRef(null);
+  const linhaRef = useRef(null);
+  const btnRef = useRef(null);
+
+  const [filter, setFilter] = useState("all");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [modalImages, setModalImages] = useState([]);
+
+  const filteredImages =
+    filter === "all" ? images : images.filter((img) => img.category === filter);
+
+  const openModal = (img) => {
+    const index = filteredImages.indexOf(img);
+    setCurrentIndex(index);
+    setModalImages(filteredImages);
+    setIsModalOpen(true);
   };
 
-  const secondGallery = {
-    topImages: [
-      { span: 3, img: images[25], alt: "grid-img-6" },
-      { span: 6, img: images[26], alt: "grid-img-7" },
-      { span: 3, img: images[27], alt: "grid-img-8" },
-    ],
-    bottomImages: [
-      { span: 8, img: images[28], alt: "grid-img-9" },
-      { span: 4, img: images[29], alt: "grid-img-10" },
-    ],
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
-  // Animação GSAP
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "instant",
+    });
+  }, []);
+
   useLayoutEffect(() => {
-    let tl = gsap.timeline();
+    const tl = gsap.timeline();
 
     tl.fromTo(
-        ".tilteGaleria",
+      ".titleGaleria",
+      { y: 100, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.7 }
+    )
+      .fromTo(
+        ".subTitleGallery",
+        { y: 100, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7 }
+      )
+      .fromTo(
+        ".GalleryFilterNav",
         { y: 100, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.7 }
       )
       .fromTo(
         ".imgsAnimation",
         { y: 100, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5 }
+        { y: 0, opacity: 1, duration: 0.5 },
+        "<"
       );
   }, []);
 
   return (
-    <div id="about">
-      <section className="sectionGallery">
-        <h1 className="tilteGaleria" id="gallery">Nossa Galeria</h1>
-        <div className="imgsAnimation">
-          <GalleryBlock {...firstGallery} />
-          <GalleryBlock {...secondGallery} />
-        </div>
-      </section>
+    <div>
+      <Navbar navbarRef={navbarRef} linhaRef={linhaRef} btnRef={btnRef} />
+
+      <div id="about">
+        <section className="sectionGallery">
+          <h1 className="titleGaleria" id="gallery">
+            Portfólio Completo
+          </h1>
+
+          <p className="subTitleGallery">
+            Uma coleção de momentos capturados ao longo dos anos. Cada imagem
+            conta uma história única, revelando emoções, beleza e a essência de
+            cada instante eternizado.
+          </p>
+
+          <GalleryFilterNav
+            active={filter}
+            setActive={setFilter}
+            className="GalleryFilterNav"
+          />
+
+          <div className="imgsAnimation">
+            <GalleryBlock images={filteredImages} openModal={openModal} />
+          </div>
+        </section>
+      </div>
+
+      <ImageModal
+        isOpen={isModalOpen}
+        images={modalImages}
+        currentIndex={currentIndex}
+        setCurrentIndex={setCurrentIndex}
+        onClose={closeModal}
+      />
     </div>
   );
 };

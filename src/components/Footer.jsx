@@ -14,82 +14,36 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      <div className="footer-container">
-        {/* Logo / Nome */}
-        <div className="footer-logo">
-          <h1>CoffeTime</h1>
-          <p>O sabor que desperta seus melhores momentos.</p>
-        </div>
+      <div>
+        <div className="footer-container">
+          {/* Logo / Nome */}
+          <div className="footer-logo">
+            <h1>Prime Focus</h1>
+            <p>CAPTURE THE STORY</p>
+          </div>
 
-        {/* Navegação */}
-        <div className="footer-menu">
-          <h2>Menu</h2>
-          <ul>
-            <li>
-              <Link
-                to="/"
-                onClick={() => {
-                  setTimeout(() => {
-                    const el = document.getElementById("paiCabecalho");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }, 100);
-                }}
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/cardapio"
-                onClick={() => {
-                  setTimeout(() => {
-                    const el = document.getElementById("paiMenu");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }, 100);
-                }}
-              >
-                Cardápio
-              </Link>
-            </li>
-            <li>
-              <button
-                className="footer-link"
-                onClick={() => goToSection("about")}
-              >
-                Sobre Nós
-              </button>
-            </li>
-            <li>
-              <button
-                className="footer-link"
-                onClick={() => goToSection("contact")}
-              >
-                Contato
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        {/* Redes sociais */}
-        <div className="footer-social">
-          <h2>Siga-nos</h2>
-          <div className="social-icons">
-            <a href="#" aria-label="Facebook">
-              <FaFacebookF />
-            </a>
-            <a href="#" aria-label="Instagram">
-              <FaInstagram />
-            </a>
-            <a href="#" aria-label="Twitter">
-              <FaTwitter />
-            </a>
+          {/* Redes sociais */}
+          <div className="footer-social">
+            <h2>Siga-nos</h2>
+            <div className="social-icons">
+              <a href="https://www.facebook.com/?locale=pt_BR" target="_blank" aria-label="Facebook">
+                <FaFacebookF />
+              </a>
+              <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+                <FaInstagram />
+              </a>
+              <a href="https://x.com/?lang=pt" target="_blank" aria-label="Twitter">
+                <FaTwitter />
+              </a>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Copyright */}
-      <div className="footer-copy">
-        © {new Date().getFullYear()} CoffeTime. Todos os direitos reservados.
+        {/* Copyright */}
+        <div className="footer-copy">
+          © {new Date().getFullYear()} Fotografia Autoral. Todos os direitos
+          reservados.
+        </div>
       </div>
     </footer>
   );

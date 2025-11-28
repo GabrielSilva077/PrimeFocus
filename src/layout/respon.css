@@ -43,112 +43,55 @@
     }
 }
 
-/* =========================
-   CARDS E SOBRE
-========================= */
-
-/* Responsividade geral */
-@media (max-width: 1325px) {
-    .alinhar {
-        flex-wrap: wrap;
-    }
-
-    .imgSobre {
-        width: 100%;
-    }
-
-    .titleAbout {
-        margin-top: 30px;
-        margin-bottom: 20px;
-    }
-}
-
-/* Tablet: 2 cards por linha */
 @media (max-width: 1024px) {
-    .cardDados {
-        flex: 0 1 45%;
-        /* cada card ocupa ~45% do container */
+
+    .navbar {
+        padding: 0 10px;
+        display: flex;
+        justify-content: space-around;
     }
 
-    .alinhar {
-        flex-wrap: wrap;
+    .menu-toggle {
+        display: flex;
     }
 
-    .imgSobre {
-        width: 100%;
-    }
-
-    .titleAbout {
-        margin-top: 30px;
-        margin-bottom: 20px;
-    }
-}
-
-/* Celular: 1 card por linha */
-@media (max-width: 768px) {
-    .cardDados {
-        flex: 0 1 90%;
-        /* ocupa quase toda a largura da tela */
-    }
-
-    .arrowLeft,
-    .arrowRight {
-        margin-top: 50px;
-    }
-
-    .arrowLeft {
-        left: 10px;
-    }
-
-    .arrowRight {
-        right: 10px;
-    }
-
-    #btnCardapio {
-        margin-top: 50px;
-    }
-}
-
-/* =========================
-   CARDÁPIO
-========================= */
-
-/* Responsividade cardápio */
-@media (max-width: 768px) {
-    .mineNav {
+    .nav-list {
+        position: absolute;
+        top: 60px;
+        left: -100%;
+        width: 40%;
+        height: 450px;
+        background-color: var(--cor-principal);
         flex-direction: column;
-        gap: 15px;
+        align-items: center;
+        transition: 0.3s;
+        border-bottom-right-radius: 15px;
     }
 
-    .mineNav p {
-        width: 100%;
-        max-width: 300px;
-        font-size: 1rem;
-        padding: 12px;
+    .nav-list li {
+        margin: 25px 0;
     }
 
-    .icons {
-        width: 18px;
-        margin-left: 8px;
-    }
-}
-
-/* =========================
-   CARDS DE CAFÉ
-========================= */
-
-/* Responsividade cardsCoffee */
-@media (max-width: 768px) {
-    .cardsCoffe {
-        height: 160px;
+    .nav-list.active {
+        left: 0;
     }
 
-    .nameCafe {
-        font-size: 1rem;
+    .nomeImg {
+        margin-left: -200px;
     }
 
-    .descCafe {
-        font-size: 0.85rem;
+    .logoImg {
+        width: 60px;
+    }
+
+    .navbar .gallery-back-btn {
+        display: flex;
+        align-Items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-Size: 1.1rem;
+        font-Weight: 500;
+        margin-left: -500px;
     }
 }
 
@@ -236,19 +179,210 @@
         width: 100%;
         padding: 10px;
     }
-    
-    .imgTextCoff{
+
+    .imgTextCoff {
         height: 360px;
         margin-bottom: 20px;
     }
 
-    .imgCoffeeShop{
+    .imgCoffeeShop {
         width: 100%;
     }
 
 }
 
 
+
+
+
+
+
 /* =========================
-   MODAL
+   HOME PAGE
 ========================= */
+
+@media (max-width: 1024px) {
+    .imgCamera {
+        width: 70%;
+    }
+
+    .titleHome {
+        font-size: clamp(6rem, 6vw, 10rem);
+    }
+
+    .Resultados {
+        margin-left: 60%;
+        font-family: inter, sans-serif;
+        font-size: clamp(0.8rem, 0.9vw, 3rem);
+    }
+
+    .percent {
+        width: 300px;
+    }
+
+    .heroSection {
+        font-size: clamp(2rem, 4.5vw, 10rem);
+        font-weight: bold;
+    }
+
+    /* =========================
+        HOME PAGE SOBRE MIM
+    ========================= */
+
+    .SobreMim {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+        margin-top: 50px;
+        gap: 50px;
+    }
+
+    .SobreMim h2 {
+        font-size: clamp(2rem, 7.5vw, 10rem);
+        margin-bottom: 30px;
+    }
+
+    .SobreMim p {
+        font-size: clamp(1.3rem, 1.3vw, 10rem);
+        line-height: 1.7;
+    }
+
+    .SobreMim .imgSobre {
+        width: 400px;
+        height: 500px;
+        margin-right: 30px;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        overflow: hidden;
+    }
+
+
+    /* ==============================
+        HOME PAGE PRÉVIA PORTFÓLIO
+    =============================== */
+
+    .titlePort {
+        font-size: clamp(2rem, 7.5vw, 10rem);
+        margin-top: 50px;
+        margin-bottom: 10px;
+    }
+
+    .subTitlePort {
+        font-size: clamp(1.3rem, 1.3vw, 10rem);
+        margin-bottom: 40px;
+    }
+
+    .gradeFotos {
+        padding: 0px 20px;
+    }
+
+
+
+
+
+
+    /* ============
+        MODAL
+    ============= */
+
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: #614238;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        visibility: hidden;
+        /* evita piscar */
+        pointer-events: none;
+        /* evita bloquear a tela */
+    }
+
+
+    .modal-overlay.hidden {
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+
+    /* =======================
+        MODAL CONTENT
+    ======================= */
+    .modal-contentGallery {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        /* animação suave caso gsap pare no meio */
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* =======================
+        MODAL IMAGE
+    ======================= */
+    .modal-image {
+        max-width: 900px;
+        max-height: 900px;
+        border-radius: 12px;
+        object-fit: contain;
+
+        transition: opacity 0.3s ease;
+        opacity: 1;
+
+        box-shadow: 0px 50px 40px 29px #422d26;
+        font-family: "Cormorant Garamond", serif;
+    }
+
+    .modal-image.fade-in {
+        opacity: 1;
+    }
+
+    .modal-image.fade-out {
+        opacity: 0;
+    }
+
+    .left {
+        margin-left: -100%;
+    }
+
+    .right {
+        margin-left: 100%;
+    }
+
+    .modal-close {
+        position: fixed;
+        margin-top: -1000px;
+        margin-left: 100%;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.082);
+        color: white;
+        padding: 10px;
+        border-radius: 50%;
+    }
+
+    .modal-label {
+        position: fixed;
+        margin-top: -1000px;
+        left: 20px;
+        color: #FDF4D9;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: clamp(2rem, 6vw, 7rem);
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 400;
+        z-index: 999999;
+    }
+
+    .subTitleGallery {
+        text-align: center;
+        width: 70%;
+        margin-bottom: 20px;
+    }
+
+}

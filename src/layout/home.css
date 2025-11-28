@@ -1,107 +1,348 @@
-/* ====== TÍTULO ====== */
+/* body {
+  color: #614238;
+}
+
+
 .titleHome {
   display: flex;
   justify-content: center;
-  text-align: center;
   align-items: center;
+  text-align: center;
   font-size: clamp(3rem, 10vw, 15rem);
-  color: var(--branco);
-  text-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
-  margin-top: -5%;
+  color: #614238;
+  text-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
   z-index: 2;
   position: relative;
 }
 
-/* ====== CONTAINER PRINCIPAL ====== */
-.paiCabecalho {
-  position: relative; /* Importante para as camadas de imagem */
+.paiCabecalho,
+.sectionCabecalho {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
-
-      opacity: 0;
   transform: translateY(50px);
-  /* mantém a transição instantânea por padrão (evita flicker por CSS transitions) */
   will-change: transform, opacity;
+  padding-bottom: 900px;
+  padding-top: 100px;
 }
 
-/* ====== CAMADAS DE IMAGEM ====== */
-.bgImage {
+
+.imgCamera,
+.imgCameraP {
   position: absolute;
-  top: 0;
-  left: 0;
+  z-index: 3;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.imgCamera {
+  position: absolute;
+  z-index: 3;
+  will-change: transform;
+  width: 36%;
+  filter: drop-shadow(35px 20px 40px rgba(0, 0, 0, 0.45));
+  transform-origin: center;
+  transform: rotate(0deg);
+  transform: translateZ(0);
+}
+
+.imgCameraP {
+  width: 10%;
+  margin-left: 40%;
+  margin-top: -23%;
+  rotate: -20deg;
+}
+
+.seSobre {
+  display: flex;
   width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  z-index: 0;
+  margin-top: -570px;
+  margin-left: 5%;
 }
 
-.bgImage.active {
-  opacity: 1;
+.DivSobre {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10%;
+  text-align: justify;
 }
 
-/* ====== BOTÃO ====== */
-.btn {
+.heroSection {
+  font-size: clamp(2rem, 3vw, 5rem);
+}
+
+.Resultados {
+  margin-left: 59%;
+  margin-top: -290px;
+}
+
+.percent {
+  padding: 20px;
+  border: 5px solid #614238;
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+.percentH1 {
+  margin-bottom: 10px;
+}
+
+.linhaResult {
+  width: 100%;
+  background-color: #614238;
+  height: 2px;
+}
+
+.numText {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bolder;
+}
+
+.pText {
+  width: 50%;
+  font-weight: 100;
+}
+
+.SobreMim {
+  width: 100%;
   display: flex;
   justify-content: center;
-  background-color: var(--cor-principal);
-  width: 100%;
+  align-items: center;
+  text-align: justify;
+  padding: 0px 100px 0px 200px;
+  gap: 100px;
+  margin-top: 10%;
+  margin-left: 3%;
+}
+
+.SobreMim h2 {
+  font-size: clamp(2rem, 4vw, 5rem);
+  font-weight: 100;
+}
+
+.SobreMim p {
+  align-items: center;
+  font-size: clamp(1rem, 1.2vw, 3rem);
+}
+
+.SobreMim img {
+  border-radius: 20px;
+  flex-shrink: 0;
+  width: 650px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  filter: grayscale(100%);
+  transition: filter 0.4s ease;
+  margin-right: 90px;
+}
+
+.SobreMim img:hover {
+  filter: grayscale(0%);
+}
+
+.portfolio {
+  margin-top: 5%;
+}
+
+.linkPortHome {
+  background-color: #614238;
+  color: white;
   padding: 10px;
   border-radius: 10px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
-  gap: 20px;
-  color: var(--branco);
+  position: relative;
+  top: 50px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.linkPortHome:hover {
+  background-color: #614238e7;
+  color: rgb(223, 222, 222);
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.8);
+}
+ */
+
+
+/* novo css */
+
+/* ====== TÍTULO ====== */
+.titleHome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: clamp(3rem, 10vw, 15rem);
+  color: #614238;
+  text-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
   z-index: 2;
   position: relative;
 }
 
-.btn:hover {
-  cursor: pointer;
-  background-color: #773e1a;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
-  transition: ease-in-out 0.5s;
+/* ====== CABEÇALHO ====== */
+.paiCabecalho,
+.sectionCabecalho {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  position: relative;
+  /* overflow: hidden; */
+  padding-bottom: 200px;
+  padding-top: 100px;
 }
 
-/* ====== SETAS ====== */
-.arrow {
-  width: 20px;
+/* NOVO: adicionando um container interno para o efeito de deslocamento */
+.sectionCabecalhoInner {
+  transform: translateY(50px);
+  /* efeito de movimento sem quebrar a modal */
+  will-change: transform, opacity;
 }
 
-.arrowLeft,
-.arrowRight {
+/* ====== CAMADAS DE IMAGEM ====== */
+.imgCamera,
+.imgCameraP {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: transparent;
+  z-index: 3;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.imgCamera {
+  width: 60%;
+  filter: drop-shadow(35px 20px 40px rgba(0, 0, 0, 0.45));
+  transform-origin: center;
+  transform: rotate(0deg) translateZ(0);
+}
+
+.imgCameraP {
+  width: 20%;
+  margin-left: 80%;
+  margin-top: -40%;
+  rotate: -20deg;
+}
+
+.seSobre {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  margin-left: 5%;
+}
+
+.DivSobre {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10%;
+  text-align: justify;
+}
+
+.heroSection {
+  font-size: clamp(2rem, 3vw, 5rem);
+}
+
+.Resultados {
+  margin-left: 59%;
+  margin-top: -290px;
+  font-family: inter, sans-serif;
+  font-size: clamp(0.8rem, 0.9vw, 3rem);
+}
+
+.percent {
+  padding: 20px;
+  border: 5px solid #614238;
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+.percentH1 {
+  margin-bottom: 10px;
+}
+
+.linhaResult {
+  width: 100%;
+  background-color: #614238;
+  height: 2px;
+}
+
+.numText {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bolder;
+}
+
+.pText {
+  width: 50%;
+  font-weight: 100;
+}
+
+.SobreMim {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: justify;
+  padding: 0px 100px 0px 200px;
+  gap: 100px;
+  margin-top: 10%;
+  margin-left: 3%;
+}
+
+.SobreMim h2 {
+  font-size: clamp(2rem, 4vw, 5rem);
+  font-weight: 100;
+}
+
+.SobreMim p {
+  align-items: center;
+  font-size: clamp(1rem, 1.1vw, 3rem);
+  font-family: inter, sans-serif;
+}
+
+.SobreMim img {
+  border-radius: 20px;
+  flex-shrink: 0;
+  width: 650px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  filter: grayscale(100%);
+  transition: filter 0.4s ease;
+  margin-right: 90px;
+}
+
+.SobreMim img:hover {
+  filter: grayscale(0%);
+}
+
+.portfolio {
+  margin-top: 5%;
+}
+
+.linkPortHome {
+  background-color: #614238;
   color: white;
-  border: none;
-  font-size: 2rem;
   padding: 10px;
+  border-radius: 10px;
+  position: relative;
+  top: 50px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.linkPortHome:hover {
+  background-color: #614238e7;
+  color: rgb(223, 222, 222);
   cursor: pointer;
-  border-radius: 50%;
-  z-index: 5;
-  transition: opacity 0.3s;
-  opacity: 0.5;
-}
-
-.arrowLeft:hover,
-.arrowRight:hover {
-  opacity: 1;
-}
-
-.arrowLeft {
-  left: 50px;
-}
-
-.arrowRight {
-  right: 50px;
+  transition: ease-in-out 0.3s;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.8);
 }
