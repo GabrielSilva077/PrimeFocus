@@ -436,7 +436,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import "../layout/home.css";
 import camera from "../assets/camera.png";
-import miniCamera from "../assets/camerapequena.png";
+import miniCamera from "../assets/cameraPequena.png";
 import imgSobre from "../assets/imgSobre.png";
 import Navbar from "../components/Navbar";
 import PercentCounter from "../components/PercentCounter";
