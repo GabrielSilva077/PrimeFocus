@@ -32,9 +32,9 @@ const Navbar = ({ navbarRef, linhaRef, btnRef }) => {
         onClick={toggleMenu}
         ref={btnRef}
       >
-        <span className="bar"></span>
+        {/* <span className="bar"></span>
         <span className="bar barT"></span>
-        <span className="bar"></span>
+        <span className="bar"></span> */}
       </div>
 
       <ul className={`nav-list ${isOpen ? "active" : ""}`}>
