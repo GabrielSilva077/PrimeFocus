@@ -101,7 +101,7 @@
   height: 950px;
   top: 0px;
   width: 1px;
-  background-color: black;
+  background-color: transparent;
   display: flex;
   position: fixed;
   margin-left: 50px;
