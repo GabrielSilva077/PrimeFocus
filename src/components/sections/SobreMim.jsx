@@ -15,7 +15,7 @@ export default function SobreMim({ imgSobre }) {
           mais que técnica — é sensibilidade, é arte, é eternizar o efêmero.
         </p>
       </div>
-      <div>
+      <div className="imgSobreMinDiv">
         <img src={imgSobre} alt="Foto Sobre Mim" className="imgSobre" />
       </div>
     </section>

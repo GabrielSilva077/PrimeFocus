@@ -192,11 +192,6 @@
 }
 
 
-
-
-
-
-
 /* =========================
    HOME PAGE
 ========================= */
@@ -385,4 +380,138 @@
         margin-bottom: 20px;
     }
 
+}
+
+
+/* =========================
+   HOME PAGE MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    .titleHome {
+        font-size: 72px;
+    }
+
+    .heroSection {
+        margin-left: 150px;
+        width: 100%;
+        margin-top: -20px;
+        font-size: 30px;
+        line-height: 1.5;
+    }
+
+    .Resultados {
+        margin-left: 0px;
+        margin-top: 200px;
+        font-family: inter, sans-serif;
+        font-size: clamp(0.8rem, 0.9vw, 3rem);
+        opacity: 0;
+    }
+
+    .SobreMim {
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .SobreMim .imgSobreMinDiv {
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .SobreMim .imgSobre {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+
+    .navbar .gallery-back-btn {
+        display: flex;
+        align-Items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-Size: 1.1rem;
+        font-Weight: 500;
+        margin-left: -250px;
+    }
+
+
+    /* ============
+        MODAL
+    ============= */
+
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: #614238;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        visibility: hidden;
+        /* evita piscar */
+        pointer-events: none;
+        /* evita bloquear a tela */
+    }
+
+
+    .modal-overlay.hidden {
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+
+    /* =======================
+        MODAL CONTENT
+    ======================= */
+    .modal-contentGallery {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        /* animação suave caso gsap pare no meio */
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* =======================
+        MODAL IMAGE
+    ======================= */
+    .modal-image {
+        max-width: 360px;
+    }
+
+    .left {
+        margin-left: -80%;
+        backdrop-filter: blur(4px) brightness(1.5);
+    }
+
+
+    .right {
+        backdrop-filter: blur(4px) brightness(1.5);
+        margin-left: 80%;
+    }
+
+    .modal-close {
+        margin-top: -600px;
+        margin-left: 95%;
+    }
+
+    .modal-label {
+        margin-top: -600px;
+        left: -10px;
+    }
+
+
+    .pagination-wrapper {
+        left: -20px;
+    }
 }

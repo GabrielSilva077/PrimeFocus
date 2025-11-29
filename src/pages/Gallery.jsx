@@ -255,7 +255,8 @@ const Gallery = () => {
       .fromTo(
         ".subTitleGallery",
         { y: 100, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7 }
+        { y: 0, opacity: 1, duration: 0.7 },
+        "<"
       )
       .fromTo(
         ".GalleryFilterNav",
