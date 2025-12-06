@@ -1,24 +1,44 @@
+# ============================
+#  FRONT-END (React + Vite)
+# ============================
+front-end/node_modules/
+front-end/dist/
+front-end/.DS_Store
+
+# Ambiente
+front-end/.env
+front-end/.env.local
+front-end/.env.*.local
+
+# Vercel
+front-end/.vercel/
+
 # Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+front-end/npm-debug.log*
+front-end/yarn-debug.log*
+front-end/yarn-error.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# ============================
+#  BACK-END (Node + Express)
+# ============================
+back-end/node_modules/
+back-end/.env
+back-end/.DS_Store
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Builds / uploads temporários
+back-end/uploads/
+back-end/temp/
+back-end/logs/
+
+# Logs
+back-end/npm-debug.log*
+back-end/yarn-debug.log*
+back-end/yarn-error.log*
+
+# ============================
+#  SISTEMA / GLOBAIS
+# ============================
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+*.log
+*.sqlite

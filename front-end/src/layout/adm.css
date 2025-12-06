@@ -1,0 +1,67 @@
+.admin-login-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #694C42;
+}
+
+.admin-login-form {
+  display: flex;
+  width: 25%;
+  height: 50%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #FDF4D9;
+  border-radius: 20px;
+  box-shadow: 10px 10px 40px #41302b;
+
+}
+
+.cadeado {
+  width: 100px;
+  background-color: #ECE1C8;
+  padding: 20px;
+  border-radius: 50%;
+}
+
+.TitleAdm {
+  font-size: clamp(2rem, 2.2vw, 3rem);
+  font-weight: 100;
+}
+
+.subTitle {
+  font-size: clamp(1rem, 1vw, 3rem);
+  font-family: inter, sans-serif;
+  margin-top: 10px;
+}
+
+.admin-input {
+  border: 1px solid #d4cdb5;
+  width: 300px;
+  height: 50px;
+  padding: 10px;
+  text-align: left;
+  border-radius: 13px;
+  margin-bottom: 5px;
+  margin-top: 20px;
+}
+
+.admin-button {
+  color: #FDF4D9;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #694C42;
+  width: 300px;
+  height: 50px;
+  padding: 10px;
+  text-align: left;
+  border-radius: 25px;
+  margin-bottom: 5px;
+  margin-top: 20px;
+}
