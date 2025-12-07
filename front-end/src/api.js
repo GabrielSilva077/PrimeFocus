@@ -1,5 +1,5 @@
 // src/api.js
-const API = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+const API = import.meta.env.VITE_API_URL || 'https://primefocus.onrender.com';
 
 function getToken() {
   return localStorage.getItem('token');

@@ -17,7 +17,7 @@ export function useContent() {
     async function fetchContent() {
       try {
         setLoading(true);
-        const res = await fetch("http://localhost:4000/api/conteudo");
+        const res = await fetch("https://primefocus.onrender.com/api/conteudo");
         const data = await res.json();
 
         setContent({

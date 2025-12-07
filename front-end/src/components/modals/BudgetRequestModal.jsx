@@ -19,7 +19,7 @@ export function BudgetRequestModal({ isOpen, onClose, position }) {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/budget/send-budget",
+        "https://primefocus.onrender.com/api/budget/send-budget",
         {
           method: "POST",
           headers: {

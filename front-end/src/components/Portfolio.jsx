@@ -18,7 +18,7 @@ export default function GallerySection() {
   useEffect(() => {
     async function fetchImages() {
       try {
-        const response = await fetch("http://localhost:4000/portfolio");
+        const response = await fetch("https://primefocus.onrender.com/portfolio");
         const data = await response.json();
 
         if (data.success) {

@@ -59,7 +59,7 @@ export default function AdminPage() {
   const carregarImagens = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:4000/api/admin/portfolio", {
+      const res = await fetch("https://primefocus.onrender.com/api/admin/portfolio", {
         headers: { Authorization: "Bearer " + token },
       });
 
@@ -90,7 +90,7 @@ export default function AdminPage() {
         setLoading(true);
         const token = localStorage.getItem("token");
 
-        const res = await fetch("http://localhost:4000/api/admin/conteudo", {
+        const res = await fetch("https://primefocus.onrender.com/api/admin/conteudo", {
           headers: { Authorization: "Bearer " + token },
         });
         const data = await res.json();
@@ -117,7 +117,7 @@ export default function AdminPage() {
         setGalleryTexts(data.gallery_texts || {});
 
         const resPort = await fetch(
-          "http://localhost:4000/api/admin/portfolio",
+          "https://primefocus.onrender.com/api/admin/portfolio",
           {
             headers: { Authorization: "Bearer " + token },
           }
@@ -143,7 +143,7 @@ export default function AdminPage() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:4000/api/admin/portfolio/${id}`,
+        `https://primefocus.onrender.com/api/admin/portfolio/${id}`,
         {
           method: "DELETE",
           headers: { Authorization: "Bearer " + token },
@@ -181,7 +181,7 @@ export default function AdminPage() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:4000/api/admin/portfolio/${editImage.id}`,
+        `https://primefocus.onrender.com/api/admin/portfolio/${editImage.id}`,
         {
           method: "PUT",
           headers: {
@@ -243,7 +243,7 @@ export default function AdminPage() {
 
       const base64Image = await toBase64(newImageFile);
 
-      const res = await fetch("http://localhost:4000/api/admin/portfolio", {
+      const res = await fetch("https://primefocus.onrender.com/api/admin/portfolio", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -305,7 +305,7 @@ export default function AdminPage() {
         portfolio,
       };
 
-      const res = await fetch("http://localhost:4000/api/admin/conteudo", {
+      const res = await fetch("https://primefocus.onrender.com/api/admin/conteudo", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
