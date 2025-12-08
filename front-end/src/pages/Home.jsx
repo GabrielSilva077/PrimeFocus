@@ -103,66 +103,58 @@ export default function HeroSection() {
       // ===========================
       // MOBILE
       // ===========================
-      "(max-width: 768px)": function () {
-        // --- animação da câmera ---
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: ".paiCabecalho",
-              start: "top top",
-              end: "15% bottom",
-              scrub: 0.5,
-            },
-          })
-          .to(".imgCamera", {
-            rotation: 80,
-            yPercent: 120,
-            xPercent: -30,
-            ease: "none",
-            scale: 1.1,
-          })
-          .to(".imgCamera", {
-            rotation: 90,
-            yPercent: 130,
-            xPercent: -30,
-            ease: "none",
-            scale: 1.2,
-          });
+"(max-width: 768px)": function () {
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: ".paiCabecalho",
+      start: "top top",
+      end: "10% bottom", // animação acontece rapidamente
+      scrub: 0,           // acompanha scroll instantaneamente
+    },
+  })
+  .to(".imgCamera", {
+    rotation: 90,
+    yPercent: 80,   // valor menor, cabe na tela
+    xPercent: -20,  // menos deslocamento lateral
+    scale: 1.1,
+    ease: "none",
+  });
 
-        // --- animação do .seSobre ---
-        gsap.fromTo(
-          ".seSobre",
-          { x: 50, opacity: 0 },
-          {
-            x: 0,
-            opacity: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: ".seSobre",
-              start: "top 80%",
-              end: "top 50%",
-              scrub: 1,
-            },
-          }
-        );
-
-        // --- animação do .Resultados ---
-        gsap.fromTo(
-          ".Resultados",
-          { y: 100, opacity: 0 }, // pode mudar laterais
-          {
-            y: 0,
-            opacity: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: ".Resultados",
-              start: "top 85%", // valores recomendados
-              end: "top 55%",
-              scrub: 1,
-            },
-          }
-        );
+  // animação do .seSobre
+  gsap.fromTo(
+    ".seSobre",
+    { x: 50, opacity: 0 },
+    {
+      x: 0,
+      opacity: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".seSobre",
+        start: "top 80%",
+        end: "top 50%",
+        scrub: 0.2, // mais rápido
       },
+    }
+  );
+
+  // animação do .Resultados
+  gsap.fromTo(
+    ".Resultados",
+    { y: 100, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".Resultados",
+        start: "top 85%",
+        end: "top 55%",
+        scrub: 0.2, // mais rápido
+      },
+    }
+  );
+}
+,
 
       // ===========================
       // DESKTOP
