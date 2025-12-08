@@ -206,6 +206,7 @@ export function BudgetRequestModal({ isOpen, onClose, position }) {
                             value={formData.date}
                             onChange={handleChange}
                             className="modal-input"
+                            placeholder="Data do evento"
                           />
                         </motion.div>
                       </div>
