@@ -1,27 +1,27 @@
 // routes/admin.routes.js
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
 
-const {
-  getContent,
-  upsertContent
-} = require("../controllers/content.controller");
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 const {
   listImages,
   createImage,
   updateImage,
-  deleteImage
+  deleteImage,
 } = require("../controllers/portfolio.controller");
 
-// ROTAS DE CONTEÚDO -------------------------
-router.get("/conteudo", getContent);
-router.put("/conteudo", upsertContent);
+const { requireAuth } = require("../middleware/auth.middleware");
 
-// ROTAS DO PORTFÓLIO ------------------------
+// ROTAS DE PORTFÓLIO
 router.get("/portfolio", listImages);
-router.post("/portfolio", createImage);
-router.put("/portfolio/:id", updateImage);
-router.delete("/portfolio/:id", deleteImage);
+
+router.post("/portfolio", requireAuth, upload.single("image"), createImage);
+
+router.put("/portfolio/:id", requireAuth, upload.single("image"), updateImage);
+
+router.delete("/portfolio/:id", requireAuth, deleteImage);
 
 module.exports = router;
