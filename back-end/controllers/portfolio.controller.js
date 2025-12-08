@@ -1,8 +1,12 @@
 // controllers/portfolio.controller.js
 
 const db = require("../db");
+const cloudinary = require("../config/cloudinary");
+const { v2: cloud } = cloudinary;
 
+// ============================
 // LISTAR IMAGENS
+// ============================
 async function listImages(req, res) {
   try {
     const result = await db.query(
@@ -17,22 +21,48 @@ async function listImages(req, res) {
   }
 }
 
-// CRIAR IMAGEM
+// ============================
+// CRIAR IMAGEM (UPLOAD → CLOUDINARY)
+// ============================
 async function createImage(req, res) {
   try {
-    const { image_url, title, category, grid_size, description } = req.body;
+    const { title, category, grid_size, description } = req.body;
 
-    if (!image_url) {
+    // Verifica se recebeu arquivo
+    if (!req.file) {
       return res
         .status(400)
-        .json({ success: false, error: "URL da imagem é obrigatória" });
+        .json({ success: false, error: "Nenhum arquivo enviado" });
     }
 
+    // Upload para Cloudinary (privado: authenticated)
+    const uploadResult = await new Promise((resolve, reject) => {
+      cloud.uploader
+        .upload_stream(
+          {
+            folder: "portfolio", // pasta no Cloudinary
+            resource_type: "image",
+            type: "authenticated", // privado
+          },
+          (err, result) => {
+            if (err) reject(err);
+            else resolve(result);
+          }
+        )
+        .end(req.file.buffer);
+    });
+
+    const { public_id, secure_url } = uploadResult;
+
+    // Salva no banco apenas a URL + public_id
     const result = await db.query(
-      `INSERT INTO portfolio_images (image_url, title, category, grid_size, description)
-       VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+      `INSERT INTO portfolio_images 
+        (public_id, image_url, title, category, grid_size, description) 
+       VALUES ($1, $2, $3, $4, $5, $6) 
+       RETURNING *`,
       [
-        image_url,
+        public_id,
+        secure_url,
         title || "",
         category || "",
         grid_size || "1x1",
@@ -49,23 +79,24 @@ async function createImage(req, res) {
   }
 }
 
-// ATUALIZAR IMAGEM
+// ============================
+// ATUALIZAR IMAGEM (ATUALIZA DADOS — SEM NOVO UPLOAD)
+// ============================
 async function updateImage(req, res) {
   try {
     const { id } = req.params;
-    const { image_url, title, category, grid_size, description } = req.body;
+    const { title, category, grid_size, description } = req.body;
 
     const result = await db.query(
       `UPDATE portfolio_images
-       SET image_url = $1,
-           title = $2,
-           category = $3,
-           grid_size = $4,
-           description = $5,
+       SET title = $1,
+           category = $2,
+           grid_size = $3,
+           description = $4,
            updated_at = NOW()
-       WHERE id = $6
+       WHERE id = $5
        RETURNING *`,
-      [image_url, title, category, grid_size, description, id]
+      [title, category, grid_size, description, id]
     );
 
     if (result.rowCount === 0) {
@@ -83,25 +114,36 @@ async function updateImage(req, res) {
   }
 }
 
-// DELETAR IMAGEM
+// ============================
+// DELETAR IMAGEM (BANCO + CLOUDINARY)
+// ============================
 async function deleteImage(req, res) {
   try {
     const { id } = req.params;
 
-    const result = await db.query(
-      "DELETE FROM portfolio_images WHERE id = $1 RETURNING *",
+    // Buscar imagem pelo ID para pegar public_id
+    const find = await db.query(
+      "SELECT public_id FROM portfolio_images WHERE id = $1",
       [id]
     );
 
-    if (result.rowCount === 0) {
+    if (find.rowCount === 0) {
       return res
         .status(404)
         .json({ success: false, error: "Imagem não encontrada" });
     }
 
+    const public_id = find.rows[0].public_id;
+
+    // Deletar do Cloudinary
+    await cloud.uploader.destroy(public_id, { type: "authenticated" });
+
+    // Deletar do banco
+    await db.query("DELETE FROM portfolio_images WHERE id = $1", [id]);
+
     return res.json({
       success: true,
-      message: "Imagem removida com sucesso",
+      message: "Imagem deletada com sucesso",
     });
   } catch (error) {
     console.error("Erro ao deletar imagem:", error);

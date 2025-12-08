@@ -59,9 +59,12 @@ export default function AdminPage() {
   const carregarImagens = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("https://primefocus.onrender.com/api/admin/portfolio", {
-        headers: { Authorization: "Bearer " + token },
-      });
+      const res = await fetch(
+        "https://primefocus.onrender.com/api/admin/portfolio",
+        {
+          headers: { Authorization: "Bearer " + token },
+        }
+      );
 
       const result = await res.json();
 
@@ -90,9 +93,12 @@ export default function AdminPage() {
         setLoading(true);
         const token = localStorage.getItem("token");
 
-        const res = await fetch("https://primefocus.onrender.com/api/admin/conteudo", {
-          headers: { Authorization: "Bearer " + token },
-        });
+        const res = await fetch(
+          "https://primefocus.onrender.com/api/admin/conteudo",
+          {
+            headers: { Authorization: "Bearer " + token },
+          }
+        );
         const data = await res.json();
 
         setHero({
@@ -213,7 +219,6 @@ export default function AdminPage() {
     }
   }
 
-  // Adicionar imagem do PC
   const adicionarImagemDoPC = async () => {
     try {
       if (!newImageFile) {
@@ -233,30 +238,28 @@ export default function AdminPage() {
 
       setLoading(true);
 
-      const toBase64 = (file) =>
-        new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result);
-          reader.onerror = reject;
-          reader.readAsDataURL(file);
-        });
+      const token = localStorage.getItem("token");
 
-      const base64Image = await toBase64(newImageFile);
+      // 🔥 Criando FormData para enviar arquivo
+      const formData = new FormData();
+      formData.append("image", newImageFile);
+      formData.append("title", newImageTitle);
+      formData.append("category", newImageCategory);
+      formData.append("grid_size", newImageSize);
+      formData.append("description", newImageDescription);
 
-      const res = await fetch("https://primefocus.onrender.com/api/admin/portfolio", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
-          image_url: base64Image,
-          title: newImageTitle,
-          category: newImageCategory,
-          grid_size: newImageSize,
-          description: newImageDescription,
-        }),
-      });
+      const res = await fetch(
+        "https://primefocus.onrender.com/api/admin/portfolio",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            // ❌ NÃO usar "Content-Type": multipart/form-data
+            // O browser define automaticamente
+          },
+          body: formData,
+        }
+      );
 
       const data = await res.json();
 
@@ -305,14 +308,17 @@ export default function AdminPage() {
         portfolio,
       };
 
-      const res = await fetch("https://primefocus.onrender.com/api/admin/conteudo", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetch(
+        "https://primefocus.onrender.com/api/admin/conteudo",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
       const data = await res.json();
 
@@ -431,7 +437,10 @@ export default function AdminPage() {
             </div>
 
             <h3>Imagens Existentes</h3>
-            <p className="pAdmPage">Esta é a ordem em que as imagens aparecerão na Prévia do Portfólio.</p>
+            <p className="pAdmPage">
+              Esta é a ordem em que as imagens aparecerão na Prévia do
+              Portfólio.
+            </p>
 
             <div className="portfolio-grid">
               {portfolio.length === 0 && (
