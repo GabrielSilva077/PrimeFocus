@@ -18,7 +18,7 @@ async function sendBudgetRequest(req, res) {
   try {
     // Envia o e-mail usando a API Resend
     await resend.emails.send({
-      from: "Site Portfólio <no-reply@prime-focus.com>", // remetente válido
+      from: "Site Portfólio <teste@resend.dev>", // remetente válido
       to: process.env.MAIL_TO,                            // e-mail de destino
       subject: "📸 Novo Pedido de Orçamento",
       html: `
