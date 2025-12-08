@@ -107,6 +107,7 @@ select.modal-input {
   outline: none;
   transition: all 0.3s;
   min-height: 50px;
+  background: red;
 }
 
 .modal-input:focus,
