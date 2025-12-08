@@ -119,9 +119,6 @@ export function BudgetRequestModal({ isOpen, onClose, position }) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15 }}
                       >
-                        <label htmlFor="name" className="modal-label">
-                          Nome Completo *
-                        </label>
                         <input
                           type="text"
                           id="name"
@@ -141,9 +138,6 @@ export function BudgetRequestModal({ isOpen, onClose, position }) {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.2 }}
                         >
-                          <label htmlFor="email" className="modal-label">
-                            E-mail *
-                          </label>
                           <input
                             type="email"
                             id="email"
@@ -161,9 +155,6 @@ export function BudgetRequestModal({ isOpen, onClose, position }) {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.25 }}
                         >
-                          <label htmlFor="phone" className="modal-label">
-                            Telefone *
-                          </label>
                           <input
                             type="tel"
                             id="phone"
@@ -184,9 +175,6 @@ export function BudgetRequestModal({ isOpen, onClose, position }) {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.3 }}
                         >
-                          <label htmlFor="eventType" className="modal-label">
-                            Tipo de Serviço *
-                          </label>
                           <select
                             id="eventType"
                             name="eventType"
@@ -211,9 +199,6 @@ export function BudgetRequestModal({ isOpen, onClose, position }) {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.35 }}
                         >
-                          <label htmlFor="date" className="modal-label">
-                            Data Desejada
-                          </label>
                           <input
                             type="date"
                             id="date"
@@ -231,9 +216,6 @@ export function BudgetRequestModal({ isOpen, onClose, position }) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4 }}
                       >
-                        <label htmlFor="message" className="modal-label">
-                          Mensagem
-                        </label>
                         <textarea
                           id="message"
                           name="message"
