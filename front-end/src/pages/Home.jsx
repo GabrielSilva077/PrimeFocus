@@ -110,23 +110,16 @@ export default function HeroSection() {
             scrollTrigger: {
               trigger: ".paiCabecalho",
               start: "top top",
-              end: "15% bottom",
-              scrub: 0.5,
+              end: "50% bottom", // aumenta o range do scroll
+              scrub: true, // mais fluido no mobile
             },
           })
           .to(".imgCamera", {
-            rotation: 80,
-            yPercent: 120,
-            xPercent: -30,
-            ease: "none",
-            scale: 1.1,
-          })
-          .to(".imgCamera", {
             rotation: 90,
-            yPercent: 130,
-            xPercent: -30,
+            yPercent: 80, // reduzir o valor para caber na tela
+            xPercent: -20, // menos deslocamento lateral
+            scale: 1.1,
             ease: "none",
-            scale: 1.2,
           });
 
         // --- animação do .seSobre ---
