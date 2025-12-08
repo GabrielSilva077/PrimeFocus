@@ -1,9 +1,9 @@
 // controllers/budget.controller.js
-const Resend = require("resend");
+const { Resend } = require("resend");
 require("dotenv").config();
 
 // Inicializa o cliente Resend com a API Key
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend({ apiKey: process.env.RESEND_API_KEY });
 
 async function sendBudgetRequest(req, res) {
   const { name, email, phone, eventType, date, message } = req.body;
@@ -16,7 +16,7 @@ async function sendBudgetRequest(req, res) {
   try {
     // Envia o e-mail usando a API Resend
     await resend.emails.send({
-      from: "Site Portfólio <no-reply@seusite.com>", // pode trocar pelo seu domínio
+      from: "Site Portfólio <no-reply@prime-focus.com>", // pode trocar pelo seu domínio
       to: process.env.MAIL_TO, // e-mail de destino
       subject: "📸 Novo Pedido de Orçamento",
       html: `
