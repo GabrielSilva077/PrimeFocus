@@ -86,13 +86,7 @@
   gap: 24px;
 }
 
-.modal-label {
-  display: block;
-  font-family: sans-serif;
-  font-size: 0.875rem;
-  color: #614238;
-  margin-bottom: 8px;
-}
+
 
 .modal-input,
 .modal-textarea,
@@ -106,7 +100,6 @@ select.modal-input {
   color: #614238;
   outline: none;
   transition: all 0.3s;
-  min-height: 100px;
 }
 
 .modal-input:focus,
@@ -185,4 +178,8 @@ select.modal-input:focus {
 .modal-success-text {
   font-family: sans-serif;
   color: #8c7b70;
+}
+
+#date, #eventType{
+  height: 50px;
 }
