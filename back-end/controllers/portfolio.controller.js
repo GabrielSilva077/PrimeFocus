@@ -1,8 +1,8 @@
 // controllers/portfolio.controller.js
 
 const db = require("../db");
-const cloudinary = require("../config/cloudinary");
-const { v2: cloud } = cloudinary;
+const cloud = require("../config/cloudinary");
+
 
 // ============================
 // LISTAR IMAGENS
