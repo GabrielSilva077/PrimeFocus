@@ -170,8 +170,16 @@
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.8);
 }
 
-.sectionCabecalho {
-  transform: translateZ(0);    /* GPU sempre ativa */
+
+
+
+
+
+
+
+
+/* .sectionCabecalho {
+  transform: translateZ(0);    
   will-change: transform;
   backface-visibility: hidden;
 }
@@ -180,5 +188,4 @@
   width: 60%;
   filter: drop-shadow(35px 20px 40px rgba(0, 0, 0, 0.45));
   transform-origin: center;
-  /* NÃO coloque translateZ aqui, GSAP vai sobrescrever */
-}
+} */
