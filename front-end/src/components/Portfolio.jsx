@@ -18,15 +18,20 @@ export default function GallerySection() {
   useEffect(() => {
     async function fetchImages() {
       try {
-        const response = await fetch("https://primefocus.onrender.com/portfolio");
+        const response = await fetch(
+          "https://primefocus.onrender.com/portfolio"
+        );
         const data = await response.json();
 
         if (data.success) {
-          // pega apenas 5 imagens
-          const limitedImgs = data.data.slice(0, 5);
+          // filtra apenas imagens com ids 1,2,3,4,5
+          const allowedIds = [1, 2, 3, 4, 5];
+          const filteredImgs = data.data.filter((img) =>
+            allowedIds.includes(img.id)
+          );
 
           // adiciona span fixo igual ao design antigo
-          const mapped = limitedImgs.map((img, index) => ({
+          const mapped = filteredImgs.map((img, index) => ({
             ...img,
             span: layoutSpans[index] || "md:col-span-1 md:row-span-1",
           }));
