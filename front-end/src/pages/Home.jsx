@@ -105,30 +105,30 @@ export default function HeroSection() {
       // ===========================
       "(max-width: 768px)": function () {
         // --- animação da câmera ---
+        // SCROLL: rotação até ficar reta + descer
         gsap
           .timeline({
             scrollTrigger: {
               trigger: ".paiCabecalho",
               start: "top top",
-              end: "15% bottom",
-              scrub: 0.5,
+              end: "17% bottom",
+              scrub: 1,
             },
           })
           .to(".imgCamera", {
             rotation: 80,
-            yPercent: 120,
+            yPercent: 90,
             xPercent: -30,
             ease: "none",
-            scale: 1.1,
+            scale: 1,
           })
           .to(".imgCamera", {
             rotation: 90,
-            yPercent: 130,
-            xPercent: -30,
+            yPercent: 100,
             ease: "none",
             scale: 1.2,
           });
-
+          
         // --- animação do .seSobre ---
         gsap.fromTo(
           ".seSobre",
