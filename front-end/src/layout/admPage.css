@@ -244,9 +244,10 @@ select:focus {
 }
 
 .modal-preview {
-  width: 100%;
+  width: 50%;
   border-radius: 10px;
   margin-bottom: 10px;
+  height: 350px;
 }
 
 .modal-buttons {

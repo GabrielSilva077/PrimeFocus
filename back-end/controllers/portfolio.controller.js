@@ -3,7 +3,6 @@
 const db = require("../db");
 const cloud = require("../config/cloudinary");
 
-
 // ============================
 // LISTAR IMAGENS
 // ============================
@@ -88,9 +87,14 @@ async function updateImage(req, res) {
     const { title, category, grid_size, description } = req.body;
 
     // Buscar imagem atual
-    const find = await db.query("SELECT * FROM portfolio_images WHERE id = $1", [id]);
+    const find = await db.query(
+      "SELECT * FROM portfolio_images WHERE id = $1",
+      [id]
+    );
     if (find.rowCount === 0) {
-      return res.status(404).json({ success: false, error: "Imagem não encontrada" });
+      return res
+        .status(404)
+        .json({ success: false, error: "Imagem não encontrada" });
     }
     const oldImage = find.rows[0];
     let image_url = oldImage.image_url;
@@ -140,10 +144,11 @@ async function updateImage(req, res) {
     return res.json({ success: true, data: result.rows[0] });
   } catch (error) {
     console.error("Erro ao atualizar imagem:", error);
-    return res.status(500).json({ success: false, error: "Erro ao atualizar imagem" });
+    return res
+      .status(500)
+      .json({ success: false, error: "Erro ao atualizar imagem" });
   }
 }
-
 
 // ============================
 // DELETAR IMAGEM (BANCO + CLOUDINARY)
