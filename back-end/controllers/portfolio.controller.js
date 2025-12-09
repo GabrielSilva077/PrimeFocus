@@ -87,32 +87,63 @@ async function updateImage(req, res) {
     const { id } = req.params;
     const { title, category, grid_size, description } = req.body;
 
+    // Buscar imagem atual
+    const find = await db.query("SELECT * FROM portfolio_images WHERE id = $1", [id]);
+    if (find.rowCount === 0) {
+      return res.status(404).json({ success: false, error: "Imagem não encontrada" });
+    }
+    const oldImage = find.rows[0];
+    let image_url = oldImage.image_url;
+    let public_id = oldImage.public_id;
+
+    // Se veio um novo arquivo, enviar para Cloudinary
+    if (req.file) {
+      // Deletar imagem antiga do Cloudinary
+      await cloud.uploader.destroy(public_id, { type: "authenticated" });
+
+      // Upload do novo arquivo
+      const uploadResult = await new Promise((resolve, reject) => {
+        cloud.uploader
+          .upload_stream(
+            {
+              folder: "portfolio",
+              resource_type: "image",
+              type: "authenticated",
+            },
+            (err, result) => {
+              if (err) reject(err);
+              else resolve(result);
+            }
+          )
+          .end(req.file.buffer);
+      });
+
+      image_url = uploadResult.secure_url;
+      public_id = uploadResult.public_id;
+    }
+
+    // Atualiza banco
     const result = await db.query(
       `UPDATE portfolio_images
        SET title = $1,
            category = $2,
            grid_size = $3,
            description = $4,
+           image_url = $5,
+           public_id = $6,
            updated_at = NOW()
-       WHERE id = $5
+       WHERE id = $7
        RETURNING *`,
-      [title, category, grid_size, description, id]
+      [title, category, grid_size, description, image_url, public_id, id]
     );
-
-    if (result.rowCount === 0) {
-      return res
-        .status(404)
-        .json({ success: false, error: "Imagem não encontrada" });
-    }
 
     return res.json({ success: true, data: result.rows[0] });
   } catch (error) {
     console.error("Erro ao atualizar imagem:", error);
-    return res
-      .status(500)
-      .json({ success: false, error: "Erro ao atualizar imagem" });
+    return res.status(500).json({ success: false, error: "Erro ao atualizar imagem" });
   }
 }
+
 
 // ============================
 // DELETAR IMAGEM (BANCO + CLOUDINARY)

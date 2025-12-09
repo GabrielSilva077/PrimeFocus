@@ -55,7 +55,10 @@ export default function AdminPage() {
   const [editCategory, setEditCategory] = useState("");
   const [editDescription, setEditDescription] = useState("");
   const [editSize, setEditSize] = useState("1x1");
+  const [editNewFile, setEditNewFile] = useState(null);
+  const [editPreview, setEditPreview] = useState("");
 
+  // Função para carregar todas as imagens
   const carregarImagens = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -67,7 +70,6 @@ export default function AdminPage() {
       );
 
       const result = await res.json();
-
       if (result.success) setPortfolio(result.data);
     } catch (error) {
       console.error("Erro ao carregar imagens:", error);
@@ -122,15 +124,7 @@ export default function AdminPage() {
         setFooter(data.footer || {});
         setGalleryTexts(data.gallery_texts || {});
 
-        const resPort = await fetch(
-          "https://primefocus.onrender.com/api/admin/portfolio",
-          {
-            headers: { Authorization: "Bearer " + token },
-          }
-        );
-        const portData = await resPort.json();
-
-        setPortfolio(portData.data || []);
+        await carregarImagens();
       } catch (err) {
         console.error("Erro ao buscar conteúdo:", err);
       } finally {
@@ -177,6 +171,8 @@ export default function AdminPage() {
     setEditCategory(img.category || "");
     setEditDescription(img.description || "");
     setEditSize(img.grid_size || "1x1");
+    setEditNewFile(null);
+    setEditPreview("");
 
     setEditModalOpen(true);
   }
@@ -186,33 +182,51 @@ export default function AdminPage() {
     try {
       const token = localStorage.getItem("token");
 
+      const formData = new FormData();
+      formData.append("title", editTitle);
+      formData.append("category", editCategory);
+      formData.append("description", editDescription);
+      formData.append("grid_size", editSize);
+
+      if (editNewFile) {
+        formData.append("image", editNewFile);
+      }
+
       const res = await fetch(
         `https://primefocus.onrender.com/api/admin/portfolio/${editImage.id}`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            image_url: editImage.image_url,
-            title: editTitle,
-            category: editCategory,
-            description: editDescription,
-            grid_size: editSize,
-          }),
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData,
         }
       );
 
       const data = await res.json();
 
       if (data.success) {
-        alert("Imagem atualizada!");
+        alert("Imagem atualizada com sucesso!");
+
         setPortfolio((prev) =>
-          prev.map((item) => (item.id === editImage.id ? data.data : item))
+          prev.map((item) => {
+            if (item.id === editImage.id) {
+              const updatedItem = { ...item, ...data.data };
+              // Força atualização da imagem para ignorar cache
+              if (editNewFile) {
+                updatedItem.image_url = URL.createObjectURL(editNewFile);
+              } else {
+                updatedItem.image_url =
+                  data.data.image_url + "?t=" + new Date().getTime();
+              }
+              return updatedItem;
+            }
+            return item;
+          })
         );
+
         setEditModalOpen(false);
-      } else alert("Erro ao salvar edição");
+      } else {
+        alert("Erro ao salvar edição");
+      }
     } catch (err) {
       console.error("Erro ao salvar edição:", err);
       alert("Erro ao salvar edição");
@@ -221,26 +235,13 @@ export default function AdminPage() {
 
   const adicionarImagemDoPC = async () => {
     try {
-      if (!newImageFile) {
-        alert("Selecione uma imagem primeiro!");
-        return;
-      }
-
-      if (!newImageCategory.trim()) {
-        alert("A categoria é obrigatória!");
-        return;
-      }
-
-      if (!newImageTitle.trim()) {
-        alert("O título é obrigatório!");
-        return;
-      }
+      if (!newImageFile) return alert("Selecione uma imagem primeiro!");
+      if (!newImageCategory.trim()) return alert("A categoria é obrigatória!");
+      if (!newImageTitle.trim()) return alert("O título é obrigatório!");
 
       setLoading(true);
-
       const token = localStorage.getItem("token");
 
-      // 🔥 Criando FormData para enviar arquivo
       const formData = new FormData();
       formData.append("image", newImageFile);
       formData.append("title", newImageTitle);
@@ -252,24 +253,16 @@ export default function AdminPage() {
         "https://primefocus.onrender.com/api/admin/portfolio",
         {
           method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            // ❌ NÃO usar "Content-Type": multipart/form-data
-            // O browser define automaticamente
-          },
+          headers: { Authorization: `Bearer ${token}` },
           body: formData,
         }
       );
 
       const data = await res.json();
 
-      if (!data.success) {
-        alert("Erro ao adicionar imagem");
-        return;
-      }
+      if (!data.success) return alert("Erro ao adicionar imagem");
 
       alert("Imagem adicionada com sucesso!");
-
       setNewImageFile(null);
       setNewImagePreview("");
       setNewImageTitle("");
@@ -297,10 +290,7 @@ export default function AdminPage() {
           subtitulo: hero.subtitle,
           cta_button: hero.cta_button,
         },
-        about: {
-          title: about.title,
-          paragraphs: about.paragraphs,
-        },
+        about: { title: about.title, paragraphs: about.paragraphs },
         servicos,
         contact,
         footer,
@@ -399,7 +389,7 @@ export default function AdminPage() {
               {newImagePreview && (
                 <img
                   src={newImagePreview}
-                  alt="Preview da imagem"
+                  alt="Preview"
                   className="image-preview"
                 />
               )}
@@ -453,11 +443,8 @@ export default function AdminPage() {
                     src={item.image_url}
                     alt={item.title || "Imagem do Portfólio"}
                   />
-
                   <h4>{item.title || "Sem título"}</h4>
-
                   <button onClick={() => editarImagem(index)}>Editar</button>
-
                   <button
                     className="delete-btn"
                     onClick={() => removerImagem(item.id)}
@@ -482,7 +469,6 @@ export default function AdminPage() {
                 value={about.title}
                 onChange={(e) => setAbout({ ...about, title: e.target.value })}
               />
-
               <textarea
                 placeholder="Parágrafo 1"
                 value={about.paragraphs[0]}
@@ -497,7 +483,6 @@ export default function AdminPage() {
 
             <section>
               <h3>Serviços</h3>
-
               {servicos.map((srv, i) => (
                 <div key={i} className="service-box">
                   <input
@@ -509,7 +494,6 @@ export default function AdminPage() {
                       setServicos(novo);
                     }}
                   />
-
                   <textarea
                     placeholder="Descrição"
                     value={srv.descricao}
@@ -537,32 +521,47 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* ======================== */}
-        {/*       MODAL DE EDIÇÃO       */}
-        {/* ======================== */}
+        {/* MODAL DE EDIÇÃO */}
         {editModalOpen && editImage && (
           <div className="modal-overlayEdit">
             <div className="modal-box">
               <h3>Editar Imagem</h3>
 
               <img
-                src={editImage.image_url}
+                src={editPreview || editImage.image_url}
                 alt="Preview"
                 className="modal-preview"
               />
+
+              <div className="file-input-wrapper">
+                <input
+                  id="editFileInput"
+                  type="file"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      setEditNewFile(file);
+                      setEditPreview(URL.createObjectURL(file));
+                    }
+                  }}
+                />
+                <label htmlFor="editFileInput" className="custom-file-btn">
+                  Trocar imagem
+                </label>
+              </div>
 
               <input
                 placeholder="Título"
                 value={editTitle}
                 onChange={(e) => setEditTitle(e.target.value)}
               />
-
               <input
                 placeholder="Categoria"
                 value={editCategory}
                 onChange={(e) => setEditCategory(e.target.value)}
               />
-
               <select
                 value={editSize}
                 onChange={(e) => setEditSize(e.target.value)}
@@ -570,7 +569,6 @@ export default function AdminPage() {
                 <option value="1x1">Pequeno (1x1)</option>
                 <option value="2x2">Médio (2x2)</option>
               </select>
-
               <textarea
                 placeholder="Descrição"
                 value={editDescription}
@@ -581,7 +579,6 @@ export default function AdminPage() {
                 <button className="save-btn" onClick={salvarEdicao}>
                   Salvar
                 </button>
-
                 <button
                   className="cancel-btn"
                   onClick={() => setEditModalOpen(false)}
