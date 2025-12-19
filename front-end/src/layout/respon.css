@@ -380,6 +380,11 @@
         margin-bottom: 20px;
     }
 
+    .admin-login-form {
+        width: 55%;
+        height: 50%;
+    }
+
 }
 
 
@@ -522,5 +527,11 @@
 
     .footer-container {
         padding: 0px;
+    }
+
+
+    .admin-login-form {
+        width: 95%;
+        height: 70%;
     }
 }
